@@ -15,6 +15,7 @@ module TestCase (tests)
 import Test.Framework (Test, testGroup)
 
 import qualified TestCase.Data.Int.Length as Int.Length (tests)
+import qualified TestCase.Data.NumberLength as NumberLength (tests)
 import qualified TestCase.Data.Word.Length as Word.Length (tests)
 
 
@@ -22,4 +23,5 @@ tests :: [Test]
 tests =
     [ testGroup "Data.Int.Length" Int.Length.tests
     , testGroup "Data.Word.Length" Word.Length.tests
+    , testGroup "Data.NumberLength" NumberLength.tests
     ]

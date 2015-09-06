@@ -23,6 +23,7 @@ library
   hs-source-dirs:       src
   exposed-modules:
       Data.Int.Length
+    , Data.NumberLength
     , Data.Word.Length
   -- other-modules:
 
@@ -46,7 +47,8 @@ test-suite unit-tests
   other-modules:
       TestCase
     , TestCase.Data.Int.Length
---  , TestCase.Data.Word.Length
+    , TestCase.Data.NumberLength
+    , TestCase.Data.Word.Length
 
   default-language:     Haskell2010
   other-extensions:     NoImplicitPrelude
