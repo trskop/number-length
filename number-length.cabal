@@ -19,6 +19,12 @@ flag pedantic
   default:              False
   manual:               True
 
+flag old-base
+  description:          Supplement Data.Proxy, which is available since
+                        base >=4.7, using tagged package.
+  default:              False
+  manual:               False
+
 library
   hs-source-dirs:       src
   exposed-modules:
@@ -30,7 +36,13 @@ library
   default-language:     Haskell2010
   other-extensions:     NoImplicitPrelude
 
-  build-depends:        base >=4.5 && <4.9
+  if flag(old-base)
+    build-depends:
+        base >=4.5 && <4.7
+      , tagged >=0.6 && <0.9
+  else
+    build-depends:
+        base >=4.7 && <4.9
 
   ghc-options:          -Wall -fwarn-tabs
 
@@ -54,10 +66,8 @@ test-suite unit-tests
   other-extensions:     NoImplicitPrelude
 
   build-depends:
-      base >=4.5 && <4.9
-
     -- {{{ Test-suite dependencies --------------------------------------------
-    , HUnit >=1.2 && <2
+      HUnit >=1.2 && <2
       -- ^ Same constraints as test-framework-hunit
     , QuickCheck >=2.6 && <2.7
     , test-framework >=0.8 && <1
@@ -69,6 +79,14 @@ test-suite unit-tests
       -- ^ There were changes in QuickCheck bounds in 0.2 branch and last one
       -- on it had a compilation failure on Hackage.
     -- }}} Test-suite dependencies --------------------------------------------
+
+  if flag(old-base)
+    build-depends:
+        base >=4.5 && <4.7
+      , tagged >=0.6 && <0.9
+  else
+    build-depends:
+        base >=4.7 && <4.9
 
   ghc-options:          -Wall -fwarn-tabs
 
