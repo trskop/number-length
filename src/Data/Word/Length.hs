@@ -23,6 +23,8 @@ import Data.Ord (Ord((<), (>=)))
 import Data.Word (Word, Word16, Word32, Word64, Word8)
 
 
+-- {{{ Decimal ----------------------------------------------------------------
+
 lengthWord8 :: Word8 -> Int
 lengthWord8 n   -- Maximum is 255.
   | n < 10     = 1
@@ -72,3 +74,44 @@ lengthWord n
     maxWord32 = fromIntegral (maxBound :: Word32) :: Word64
     maxWord   = fromIntegral (maxBound :: Word)   :: Word64
 {-# INLINE lengthWord #-}
+
+-- }}} Decimal ----------------------------------------------------------------
+
+-- {{{ Hexadecimal ------------------------------------------------------------
+
+lengthWord8hex :: Word8 -> Int
+lengthWord8hex n    -- Maximum is 255 = 0xff.
+  | n < 16    = 1
+  | otherwise = 2
+{-# INLINE lengthWord8hex #-}
+
+lengthWord16hex :: Word16 -> Int
+lengthWord16hex n   -- Maximum is 65535 = 0xffff.
+  | n < 0x10   = 1
+  | n < 0x100  = 2
+  | n < 0x1000 = 3
+  | otherwise  = 4
+{-# INLINE lengthWord16hex #-}
+
+lengthWord32hex :: Word32 -> Int
+lengthWord32hex n   -- Maximum is 4294967295 = 0xffffffff.
+  | n < 0x10    = 1
+  | n < 0x100   = 2
+  | n < 0x1000  = 3
+  | n < 0x10000 = 4
+  | otherwise   = 4 + lengthWord32hex (n `quot` 0x10000)
+    -- n >= 0x10000
+{-# INLINE lengthWord32hex #-}
+
+lengthWord64hex :: Word64 -> Int
+lengthWord64hex n   -- Maximum is 18446744073709551615 = 0xffffffffffffffff.
+  | n <  0x10        = 1
+  | n <  0x100       = 2
+  | n <  0x1000      = 3
+  | n <  0x10000     = 4
+  | n >= 0x100000000 = 8 + lengthWord64hex (n `quot` 0x100000000)
+  | otherwise        = 4 + lengthWord64hex (n `quot` 0x10000)
+    -- n >= 0x10000
+{-# INLINE lengthWord64hex #-}
+
+-- }}} Hexadecimal ------------------------------------------------------------

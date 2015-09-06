@@ -25,8 +25,8 @@ import Data.Int (Int, Int16, Int32, Int64, Int8)
 import qualified Data.List as List (dropWhile, length)
 import Data.Ord (Ord((<)))
 import Data.String (String)
-import Text.Show (Show(show))
 import Text.Printf (PrintfArg, printf)
+import Text.Show (Show(show))
 
 import Test.HUnit (Assertion, (@?=))
 import Test.Framework (Test)
@@ -93,7 +93,7 @@ tests =
 numberLengthDec :: Show n => n -> Int
 numberLengthDec = List.length . List.dropWhile (== '-') . show
 
-numberLengthHex :: (PrintfArg n, Integral n, Ord n, Show n) => n -> Int
+numberLengthHex :: (PrintfArg n, Integral n, Ord n) => n -> Int
 numberLengthHex n
   | n < 0     = numberLengthHex' . negate . int64 $ fromIntegral n
   | otherwise = numberLengthHex' n
@@ -122,7 +122,6 @@ property_lengthInt8 :: Int8 -> Bool
 property_lengthInt8 = lengthInt8 <==> numberLengthDec
 
 -- }}} lengthInt8 -------------------------------------------------------------
-
 -- {{{ lengthInt16 ------------------------------------------------------------
 
 test_lengthInt16_minBound, test_lengthInt16_maxBound :: Assertion
@@ -137,7 +136,6 @@ property_lengthInt16 :: Int16 -> Bool
 property_lengthInt16 = lengthInt16 <==> numberLengthDec
 
 -- }}} lengthInt16 ------------------------------------------------------------
-
 -- {{{ lengthInt32 ------------------------------------------------------------
 
 test_lengthInt32_minBound, test_lengthInt32_maxBound :: Assertion
@@ -152,7 +150,6 @@ property_lengthInt32 :: Int32 -> Bool
 property_lengthInt32 = lengthInt32 <==> numberLengthDec
 
 -- }}} lengthInt32 ------------------------------------------------------------
-
 -- {{{ lengthInt64 ------------------------------------------------------------
 
 test_lengthInt64_minBound, test_lengthInt64_maxBound :: Assertion
@@ -167,7 +164,6 @@ property_lengthInt64 :: Int64 -> Bool
 property_lengthInt64 = lengthInt64 <==> numberLengthDec
 
 -- }}} lengthInt64 ------------------------------------------------------------
-
 -- {{{ lengthInt --------------------------------------------------------------
 
 test_lengthInt_minBound, test_lengthInt_maxBound :: Assertion
@@ -199,7 +195,6 @@ property_lengthInt8hex :: Int8 -> Bool
 property_lengthInt8hex = lengthInt8hex <==> numberLengthHex
 
 -- }}} lengthInt8hex ----------------------------------------------------------
-
 -- {{{ lengthInt16hex ---------------------------------------------------------
 
 test_lengthInt16hex_minBound, test_lengthInt16hex_maxBound :: Assertion
@@ -214,7 +209,6 @@ property_lengthInt16hex :: Int16 -> Bool
 property_lengthInt16hex = lengthInt16hex <==> numberLengthHex
 
 -- }}} lengthInt16hex ---------------------------------------------------------
-
 -- {{{ lengthInt32hex ---------------------------------------------------------
 
 test_lengthInt32hex_minBound, test_lengthInt32hex_maxBound :: Assertion
@@ -229,7 +223,6 @@ property_lengthInt32hex :: Int32 -> Bool
 property_lengthInt32hex = lengthInt32hex <==> numberLengthHex
 
 -- }}} lengthInt32hex ---------------------------------------------------------
-
 -- {{{ lengthInt64hex ---------------------------------------------------------
 
 test_lengthInt64hex_minBound, test_lengthInt64hex_maxBound :: Assertion
@@ -244,7 +237,6 @@ property_lengthInt64hex :: Int64 -> Bool
 property_lengthInt64hex = lengthInt64hex <==> numberLengthHex
 
 -- }}} lengthInt64hex ---------------------------------------------------------
-
 -- {{{ lengthIntHex -----------------------------------------------------------
 
 test_lengthIntHex_minBound, test_lengthIntHex_maxBound :: Assertion
