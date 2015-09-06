@@ -38,7 +38,7 @@ import Data.Word.Length
     , lengthWord64hex
     , lengthWord8
     , lengthWord8hex
---  , lengthWordHex
+    , lengthWordHex
     )
 
 
@@ -80,9 +80,9 @@ tests =
     , testCase "lengthWord64hex maxBound" test_lengthWord64hex_maxBound
     , testProperty "lengthWord64hex = length . show" property_lengthWord64hex
 
---  , testCase "lengthWordHex minBound" test_lengthWordHex_minBound
---  , testCase "lengthWordHex maxBound" test_lengthWordHex_maxBound
---  , testProperty "lengthWordHex = length . show" property_lengthWordHex
+    , testCase "lengthWordHex minBound" test_lengthWordHex_minBound
+    , testCase "lengthWordHex maxBound" test_lengthWordHex_maxBound
+    , testProperty "lengthWordHex = length . show" property_lengthWordHex
     ]
 
 numberLength :: Show n => n -> Int
@@ -227,7 +227,6 @@ property_lengthWord64hex = lengthWord64hex <==> numberLengthHex
 -- }}} lengthWord64hex --------------------------------------------------------
 -- {{{ lengthWordHex ----------------------------------------------------------
 
-{-
 test_lengthWordHex_minBound, test_lengthWordHex_maxBound :: Assertion
 
 test_lengthWordHex_minBound =
@@ -238,7 +237,6 @@ test_lengthWordHex_maxBound =
 
 property_lengthWordHex :: Word -> Bool
 property_lengthWordHex = lengthWordHex <==> numberLengthHex
--}
 
 -- }}} lengthWordHex ----------------------------------------------------------
 -- }}} Hexadecimal ------------------------------------------------------------

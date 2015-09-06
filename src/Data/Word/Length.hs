@@ -114,4 +114,15 @@ lengthWord64hex n   -- Maximum is 18446744073709551615 = 0xffffffffffffffff.
     -- n >= 0x10000
 {-# INLINE lengthWord64hex #-}
 
+lengthWordHex :: Word -> Int
+lengthWordHex n
+  | is64bit   = lengthWord64hex (fromIntegral n)
+  | otherwise = lengthWord32hex (fromIntegral n)
+  where
+    is64bit = maxWord32 < maxWord
+
+    maxWord32 = fromIntegral (maxBound :: Word32) :: Word64
+    maxWord   = fromIntegral (maxBound :: Word)   :: Word64
+{-# INLINE lengthWordHex #-}
+
 -- }}} Hexadecimal ------------------------------------------------------------
