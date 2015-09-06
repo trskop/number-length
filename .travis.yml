@@ -7,7 +7,7 @@ ghc:
 
 script:
   # Option -fpedantic turns on additional wornings in addition to -Wall.
-  - cabal configure -fpedantic --enable-tests && cabal build && cabal test --show-details=always --test-option=--color
+  - cabal configure -fpedantic --enable-tests && cabal build && cabal test --show-details=always
 
   # Following line tests if sdist package is created correctly.
   - cabal sdist && cabal install --enable-tests dist/*.tar.gz
