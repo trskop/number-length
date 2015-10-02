@@ -11,7 +11,7 @@ module Data.Int.Length
   where
 
 import Prelude
-    ( Bounded(maxBound, minBound)
+    ( Bounded(minBound)
     , Integral(quot)
     , Num((+), negate)
     , fromIntegral
@@ -21,6 +21,8 @@ import Data.Bool ((&&), otherwise)
 import Data.Eq (Eq((==)))
 import Data.Int (Int, Int16, Int32, Int64, Int8)
 import Data.Ord (Ord((<), (>), (>=)))
+
+import Data.NumberLength.Internal (either32or64)
 
 
 -- {{{ Decimal ----------------------------------------------------------------
@@ -90,14 +92,8 @@ lengthInt64 n
 {-# INLINE lengthInt64 #-}
 
 lengthInt :: Int -> Int
-lengthInt n
-  | is64bit   = lengthInt64 (fromIntegral n)
-  | otherwise = lengthInt32 (fromIntegral n)
-  where
-    is64bit = maxInt32 < maxInt
-
-    maxInt32 = fromIntegral (maxBound :: Int32) :: Int64
-    maxInt   = fromIntegral (maxBound :: Int)   :: Int64
+lengthInt n =
+    lengthInt32 (fromIntegral n) `either32or64` lengthInt64 (fromIntegral n)
 {-# INLINE lengthInt #-}
 
 -- }}} Decimal ----------------------------------------------------------------
@@ -162,14 +158,8 @@ lengthInt64hex n
 {-# INLINE lengthInt64hex #-}
 
 lengthIntHex :: Int -> Int
-lengthIntHex n
-  | is64bit   = lengthInt64hex (fromIntegral n)
-  | otherwise = lengthInt32hex (fromIntegral n)
-  where
-    is64bit = maxInt32 < maxInt
-
-    maxInt32 = fromIntegral (maxBound :: Int32) :: Int64
-    maxInt   = fromIntegral (maxBound :: Int)   :: Int64
+lengthIntHex n = lengthInt32hex (fromIntegral n)
+    `either32or64` lengthInt64hex (fromIntegral n)
 {-# INLINE lengthIntHex #-}
 
 -- }}} Hexadecimal ------------------------------------------------------------

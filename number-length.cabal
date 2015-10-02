@@ -1,6 +1,7 @@
 name:                   number-length
 version:                0.1.0.0
-synopsis:               Number length in decimal and hexadecimal representation.
+synopsis:
+  Number of digits in a number in decimal and hexadecimal representation.
 -- description:            TODO
 homepage:               https://github.com/trskop/number-length
 license:                BSD3
@@ -30,6 +31,7 @@ library
   exposed-modules:
       Data.Int.Length
     , Data.NumberLength
+    , Data.NumberLength.Internal
     , Data.Word.Length
   -- other-modules:
 

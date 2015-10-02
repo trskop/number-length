@@ -11,8 +11,7 @@ module Data.Word.Length
   where
 
 import Prelude
-    ( Bounded(maxBound)
-    , Integral(quot)
+    ( Integral(quot)
     , Num((+))
     , fromIntegral
     )
@@ -21,6 +20,8 @@ import Data.Bool (otherwise)
 import Data.Int (Int)
 import Data.Ord (Ord((<), (>=)))
 import Data.Word (Word, Word16, Word32, Word64, Word8)
+
+import Data.NumberLength.Internal (either32or64)
 
 
 -- {{{ Decimal ----------------------------------------------------------------
@@ -65,14 +66,8 @@ lengthWord64 n   -- Maximum is 18446744073709551615.
 {-# INLINE lengthWord64 #-}
 
 lengthWord :: Word -> Int
-lengthWord n
-  | is64bit   = lengthWord64 (fromIntegral n)
-  | otherwise = lengthWord32 (fromIntegral n)
-  where
-    is64bit = maxWord32 < maxWord
-
-    maxWord32 = fromIntegral (maxBound :: Word32) :: Word64
-    maxWord   = fromIntegral (maxBound :: Word)   :: Word64
+lengthWord n =
+    lengthWord32 (fromIntegral n) `either32or64` lengthWord64 (fromIntegral n)
 {-# INLINE lengthWord #-}
 
 -- }}} Decimal ----------------------------------------------------------------
@@ -115,14 +110,8 @@ lengthWord64hex n   -- Maximum is 18446744073709551615 = 0xffffffffffffffff.
 {-# INLINE lengthWord64hex #-}
 
 lengthWordHex :: Word -> Int
-lengthWordHex n
-  | is64bit   = lengthWord64hex (fromIntegral n)
-  | otherwise = lengthWord32hex (fromIntegral n)
-  where
-    is64bit = maxWord32 < maxWord
-
-    maxWord32 = fromIntegral (maxBound :: Word32) :: Word64
-    maxWord   = fromIntegral (maxBound :: Word)   :: Word64
+lengthWordHex n = lengthWord32hex (fromIntegral n)
+    `either32or64` lengthWord64hex (fromIntegral n)
 {-# INLINE lengthWordHex #-}
 
 -- }}} Hexadecimal ------------------------------------------------------------
