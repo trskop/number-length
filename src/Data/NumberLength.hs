@@ -10,11 +10,7 @@
 module Data.NumberLength
   where
 
-import Prelude (Bounded(maxBound), fromIntegral)
-
-import Data.Bool (Bool, otherwise)
 import Data.Int (Int, Int16, Int32, Int64, Int8)
-import Data.Ord (Ord((>)))
 import Data.Word (Word, Word16, Word32, Word64, Word8)
 
 import Data.Proxy (Proxy)
@@ -31,6 +27,7 @@ import Data.Int.Length
     , lengthInt8hex
     , lengthIntHex
     )
+import Data.NumberLength.Internal (either32or64)
 import Data.Word.Length
     ( lengthWord
     , lengthWord16
@@ -48,6 +45,8 @@ import Data.Word.Length
 class NumberLength a where
     numberLength :: a -> Int
     numberLengthHex :: a -> Int
+
+class NumberLength a => BoundedNumberLength a where
     maxNumberLength :: Proxy a -> Int
     maxNumberLengthHex :: Proxy a -> Int
 
@@ -57,39 +56,39 @@ instance NumberLength Int where
     numberLength = lengthInt
     numberLengthHex = lengthIntHex
 
-    maxNumberLength _
-      | isInt64bit = 19
-      | otherwise  = 10 -- 32bit
-
-    maxNumberLengthHex _
-      | isInt64bit = 16
-      | otherwise  = 8  -- 32bit
-
-isInt64bit :: Bool
-isInt64bit = (maxBound :: Int) > fromIntegral (maxBound :: Int32)
-{-# INLINE isInt64bit #-}
+instance BoundedNumberLength Int where
+    maxNumberLength _ = 10 `either32or64` 19
+    maxNumberLengthHex _ = 8 `either32or64` 16
 
 instance NumberLength Int64 where
     numberLength = lengthInt64
     numberLengthHex = lengthInt64hex
+
+instance BoundedNumberLength Int64 where
     maxNumberLength _ = 19
     maxNumberLengthHex _ = 16
 
 instance NumberLength Int32 where
     numberLength = lengthInt32
     numberLengthHex = lengthInt32hex
+
+instance BoundedNumberLength Int32 where
     maxNumberLength _ = 10
     maxNumberLengthHex _ = 8
 
 instance NumberLength Int16 where
     numberLength = lengthInt16
     numberLengthHex = lengthInt16hex
+
+instance BoundedNumberLength Int16 where
     maxNumberLength _ = 5
     maxNumberLengthHex _ = 4
 
 instance NumberLength Int8 where
     numberLength = lengthInt8
     numberLengthHex = lengthInt8hex
+
+instance BoundedNumberLength Int8 where
     maxNumberLength _ = 3
     maxNumberLengthHex _ = 2
 
@@ -100,39 +99,39 @@ instance NumberLength Word where
     numberLength = lengthWord
     numberLengthHex = lengthWordHex
 
-    maxNumberLength _
-      | isWord64bit = 20
-      | otherwise   = 10    -- 32bit
-
-    maxNumberLengthHex _
-      | isWord64bit = 16
-      | otherwise   = 8     -- 32bit
-
-isWord64bit :: Bool
-isWord64bit = (maxBound :: Word) > fromIntegral (maxBound :: Word32)
-{-# INLINE isWord64bit #-}
+instance BoundedNumberLength Word where
+    maxNumberLength _ = 10 `either32or64` 20
+    maxNumberLengthHex _ = 8 `either32or64` 16
 
 instance NumberLength Word64 where
     numberLength = lengthWord64
     numberLengthHex = lengthWord64hex
+
+instance BoundedNumberLength Word64 where
     maxNumberLength _ = 20
     maxNumberLengthHex _ = 16
 
 instance NumberLength Word32 where
     numberLength = lengthWord32
     numberLengthHex = lengthWord32hex
+
+instance BoundedNumberLength Word32 where
     maxNumberLength _ = 10
     maxNumberLengthHex _ = 8
 
 instance NumberLength Word16 where
     numberLength = lengthWord16
     numberLengthHex = lengthWord16hex
+
+instance BoundedNumberLength Word16 where
     maxNumberLength _ = 5
     maxNumberLengthHex _ = 4
 
 instance NumberLength Word8 where
     numberLength = lengthWord8
     numberLengthHex = lengthWord8hex
+
+instance BoundedNumberLength Word8 where
     maxNumberLength _ = 3
     maxNumberLengthHex _ = 2
 

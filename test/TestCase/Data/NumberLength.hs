@@ -26,12 +26,8 @@ import Test.Framework.Providers.HUnit (testCase)
 import Test.Framework.Providers.QuickCheck2 (testProperty)
 
 import Data.NumberLength
-    ( NumberLength
-        ( numberLength
-        , numberLengthHex
-        , maxNumberLength
-        , maxNumberLengthHex
-        )
+    ( NumberLength(numberLength, numberLengthHex)
+    , BoundedNumberLength(maxNumberLength, maxNumberLengthHex)
     )
 import Data.Int.Length
     ( lengthInt
@@ -61,66 +57,80 @@ import Data.Word.Length
 
 tests :: [Test]
 tests =
-    [ testGroup "numberLengthHex"
-        [ testProperty "Int"   $ numberLength <==> lengthInt
-        , testProperty "Int8"  $ numberLength <==> lengthInt8
-        , testProperty "Int16" $ numberLength <==> lengthInt16
-        , testProperty "Int32" $ numberLength <==> lengthInt32
-        , testProperty "Int32" $ numberLength <==> lengthInt64
+    [ testGroup "class NumberLength"
+        [ testGroup "numberLengthHex"
+            [ testProperty "Int"    $ numberLength <==> lengthInt
+            , testProperty "Int8"   $ numberLength <==> lengthInt8
+            , testProperty "Int16"  $ numberLength <==> lengthInt16
+            , testProperty "Int32"  $ numberLength <==> lengthInt32
+            , testProperty "Int64"  $ numberLength <==> lengthInt64
+            , testProperty "Word"   $ numberLength <==> lengthWord
+            , testProperty "Word8"  $ numberLength <==> lengthWord8
+            , testProperty "Word16" $ numberLength <==> lengthWord16
+            , testProperty "Word32" $ numberLength <==> lengthWord32
+            , testProperty "Word64" $ numberLength <==> lengthWord64
+            ]
+
+        , testGroup "numberLengthHex"
+            [ testProperty "Int"    $ numberLengthHex <==> lengthIntHex
+            , testProperty "Int8"   $ numberLengthHex <==> lengthInt8hex
+            , testProperty "Int16"  $ numberLengthHex <==> lengthInt16hex
+            , testProperty "Int32"  $ numberLengthHex <==> lengthInt32hex
+            , testProperty "Int64"  $ numberLengthHex <==> lengthInt64hex
+            , testProperty "Word"   $ numberLengthHex <==> lengthWordHex
+            , testProperty "Word8"  $ numberLengthHex <==> lengthWord8hex
+            , testProperty "Word16" $ numberLengthHex <==> lengthWord16hex
+            , testProperty "Word32" $ numberLengthHex <==> lengthWord32hex
+            , testProperty "Word64" $ numberLengthHex <==> lengthWord64hex
+            ]
         ]
 
-    , testGroup "numberLengthHex"
-        [ testProperty "Int"   $ numberLengthHex <==> lengthIntHex
-        , testProperty "Int8"  $ numberLengthHex <==> lengthInt8hex
-        , testProperty "Int16" $ numberLengthHex <==> lengthInt16hex
-        , testProperty "Int32" $ numberLengthHex <==> lengthInt32hex
-        , testProperty "Int32" $ numberLengthHex <==> lengthInt64hex
-        ]
+    , testGroup "class BoundedNumberLength"
+        [ testGroup "maxNumberLength"
+            [ testCase "Int"
+                $ maxNumberLength int    @?= lengthInt    maxBound
+            , testCase "Int8"
+                $ maxNumberLength int8   @?= lengthInt8   maxBound
+            , testCase "Int16"
+                $ maxNumberLength int16  @?= lengthInt16  maxBound
+            , testCase "Int32"
+                $ maxNumberLength int32  @?= lengthInt32  maxBound
+            , testCase "Int64"
+                $ maxNumberLength int64  @?= lengthInt64  maxBound
+            , testCase "Word"
+                $ maxNumberLength word   @?= lengthWord   maxBound
+            , testCase "Word8"
+                $ maxNumberLength word8  @?= lengthWord8  maxBound
+            , testCase "Word16"
+                $ maxNumberLength word16 @?= lengthWord16 maxBound
+            , testCase "Word32"
+                $ maxNumberLength word32 @?= lengthWord32 maxBound
+            , testCase "Word64"
+                $ maxNumberLength word64 @?= lengthWord64 maxBound
+            ]
 
-    , testGroup "maxNumberLength"
-        [ testCase "Int"
-            $ maxNumberLength int    @?= lengthInt    maxBound
-        , testCase "Int8"
-            $ maxNumberLength int8   @?= lengthInt8   maxBound
-        , testCase "Int16"
-            $ maxNumberLength int16  @?= lengthInt16  maxBound
-        , testCase "Int32"
-            $ maxNumberLength int32  @?= lengthInt32  maxBound
-        , testCase "Int64"
-            $ maxNumberLength int64  @?= lengthInt64  maxBound
-        , testCase "Word"
-            $ maxNumberLength word   @?= lengthWord   maxBound
-        , testCase "Word8"
-            $ maxNumberLength word8  @?= lengthWord8  maxBound
-        , testCase "Word16"
-            $ maxNumberLength word16 @?= lengthWord16 maxBound
-        , testCase "Word32"
-            $ maxNumberLength word32 @?= lengthWord32 maxBound
-        , testCase "Word64"
-            $ maxNumberLength word64 @?= lengthWord64 maxBound
-        ]
-
-    , testGroup "maxNumberLengthHex"
-        [ testCase "Int"
-            $ maxNumberLengthHex int    @?= lengthIntHex    maxBound
-        , testCase "Int8"
-            $ maxNumberLengthHex int8   @?= lengthInt8hex   maxBound
-        , testCase "Int16"
-            $ maxNumberLengthHex int16  @?= lengthInt16hex  maxBound
-        , testCase "Int32"
-            $ maxNumberLengthHex int32  @?= lengthInt32hex  maxBound
-        , testCase "Int64"
-            $ maxNumberLengthHex int64  @?= lengthInt64hex  maxBound
-        , testCase "Word"
-            $ maxNumberLengthHex word   @?= lengthWordHex   maxBound
-        , testCase "Word8"
-            $ maxNumberLengthHex word8  @?= lengthWord8hex  maxBound
-        , testCase "Word16"
-            $ maxNumberLengthHex word16 @?= lengthWord16hex maxBound
-        , testCase "Word32"
-            $ maxNumberLengthHex word32 @?= lengthWord32hex maxBound
-        , testCase "Word64"
-            $ maxNumberLengthHex word64 @?= lengthWord64hex maxBound
+        , testGroup "maxNumberLengthHex"
+            [ testCase "Int"
+                $ maxNumberLengthHex int    @?= lengthIntHex    maxBound
+            , testCase "Int8"
+                $ maxNumberLengthHex int8   @?= lengthInt8hex   maxBound
+            , testCase "Int16"
+                $ maxNumberLengthHex int16  @?= lengthInt16hex  maxBound
+            , testCase "Int32"
+                $ maxNumberLengthHex int32  @?= lengthInt32hex  maxBound
+            , testCase "Int64"
+                $ maxNumberLengthHex int64  @?= lengthInt64hex  maxBound
+            , testCase "Word"
+                $ maxNumberLengthHex word   @?= lengthWordHex   maxBound
+            , testCase "Word8"
+                $ maxNumberLengthHex word8  @?= lengthWord8hex  maxBound
+            , testCase "Word16"
+                $ maxNumberLengthHex word16 @?= lengthWord16hex maxBound
+            , testCase "Word32"
+                $ maxNumberLengthHex word32 @?= lengthWord32hex maxBound
+            , testCase "Word64"
+                $ maxNumberLengthHex word64 @?= lengthWord64hex maxBound
+            ]
         ]
     ]
   where
