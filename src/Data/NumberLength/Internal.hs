@@ -2,11 +2,11 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 -- |
 -- Module:       $HEADER$
--- Description:  TODO
+-- Description:  Internally used utilities.
 -- Copyright:    (c) 2015, Peter Trško
 -- License:      BSD3
 --
--- Stability:    experimental
+-- Stability:    unstable
 -- Portability:  CPP, NoImplicitPrelude
 module Data.NumberLength.Internal
   where

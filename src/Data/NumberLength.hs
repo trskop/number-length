@@ -2,13 +2,22 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 -- |
 -- Module:       $HEADER$
--- Description:  TODO
+-- Description:  Polymorphic interface for getting number of digits of a number
+--               in decimal or hexadecimal representation.
 -- Copyright:    (c) 2015, Peter Trško
 -- License:      BSD3
 --
 -- Stability:    experimental
 -- Portability:  DefaultSignatures, NoImplicitPrelude
+--
+-- Polymorphic interface for getting number of digits of a number in decimal or
+-- hexadecimal representation.
 module Data.NumberLength
+    (
+      NumberLength(..)
+    , SignedNumberLength(..)
+    , BoundedNumberLength(..)
+    )
   where
 
 import Prelude(Num((+)), fromIntegral)

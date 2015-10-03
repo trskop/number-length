@@ -1,7 +1,8 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 -- |
 -- Module:       $HEADER$
--- Description:  TODO
+-- Description:  Get number of digits of a Int-family number in decimal or
+--               hexadecimal representation.
 -- Copyright:    (c) 2015, Peter Trško
 -- License:      BSD3
 --
