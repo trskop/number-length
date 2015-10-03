@@ -7,7 +7,7 @@
 --
 -- Stability:    experimental
 -- Portability:  NoImplicitPrelude
-module Data.Word.Length
+module Data.NumberLength.Word
   where
 
 import Prelude

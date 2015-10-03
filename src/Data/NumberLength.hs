@@ -18,7 +18,7 @@ import Data.Ord (Ord((<)))
 import Data.Proxy (Proxy)
 import Data.Word (Word, Word16, Word32, Word64, Word8)
 
-import Data.Int.Length
+import Data.NumberLength.Int
     ( lengthInt
     , lengthInt16
     , lengthInt16hex
@@ -31,7 +31,7 @@ import Data.Int.Length
     , lengthIntHex
     )
 import Data.NumberLength.Internal (either32or64)
-import Data.Word.Length
+import Data.NumberLength.Word
     ( lengthWord
     , lengthWord16
     , lengthWord16hex

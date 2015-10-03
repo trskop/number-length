@@ -29,10 +29,10 @@ flag old-base
 library
   hs-source-dirs:       src
   exposed-modules:
-      Data.Int.Length
-    , Data.NumberLength
+      Data.NumberLength
+    , Data.NumberLength.Int
     , Data.NumberLength.Internal
-    , Data.Word.Length
+    , Data.NumberLength.Word
   -- other-modules:
 
   default-language:     Haskell2010

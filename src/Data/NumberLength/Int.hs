@@ -7,7 +7,7 @@
 --
 -- Stability:    experimental
 -- Portability:  NoImplicitPrelude
-module Data.Int.Length
+module Data.NumberLength.Int
   where
 
 import Prelude
