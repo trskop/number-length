@@ -2,7 +2,11 @@ name:                   number-length
 version:                0.1.0.0
 synopsis:
   Number of digits in a number in decimal and hexadecimal representation.
--- description:            TODO
+description:
+  There are situations when it is necessary to know the length of a number in
+  decimal or hexadecimal form. In example when serializing it in to human
+  readable format.
+
 homepage:               https://github.com/trskop/number-length
 license:                BSD3
 license-file:           LICENSE

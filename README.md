@@ -10,6 +10,11 @@
 
 Number length in decimal and hexadecimal representation.
 
+There are situations when it is necessary to know the length of a number in
+decimal or hexadecimal form. In example when serializing it in to human
+readable format.
+
+
 
 [Haskell.org]:
   http://www.haskell.org
