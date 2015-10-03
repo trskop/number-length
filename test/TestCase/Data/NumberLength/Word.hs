@@ -7,7 +7,7 @@
 --
 -- Stability:    experimental
 -- Portability:  NoImplicitPrelude
-module TestCase.Data.Word.Length
+module TestCase.Data.NumberLength.Word
   where
 
 import Prelude (Bounded(maxBound, minBound), Integral, fromIntegral)
@@ -28,7 +28,7 @@ import Test.Framework (Test)
 import Test.Framework.Providers.HUnit (testCase)
 import Test.Framework.Providers.QuickCheck2 (testProperty)
 
-import Data.Word.Length
+import Data.NumberLength.Word
     ( lengthWord
     , lengthWord16
     , lengthWord16hex

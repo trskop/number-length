@@ -7,7 +7,7 @@
 --
 -- Stability:    experimental
 -- Portability:  NoImplicitPrelude
-module TestCase.Data.Int.Length
+module TestCase.Data.NumberLength.Int
   where
 
 import Prelude
@@ -33,7 +33,7 @@ import Test.Framework (Test)
 import Test.Framework.Providers.HUnit (testCase)
 import Test.Framework.Providers.QuickCheck2 (testProperty)
 
-import Data.Int.Length
+import Data.NumberLength.Int
     ( lengthInt
     , lengthInt16
     , lengthInt16hex

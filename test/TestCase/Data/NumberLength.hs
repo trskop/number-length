@@ -29,7 +29,7 @@ import Data.NumberLength
     ( NumberLength(numberLength, numberLengthHex)
     , BoundedNumberLength(maxNumberLength, maxNumberLengthHex)
     )
-import Data.Int.Length
+import Data.NumberLength.Int
     ( lengthInt
     , lengthInt16
     , lengthInt16hex
@@ -41,7 +41,7 @@ import Data.Int.Length
     , lengthInt8hex
     , lengthIntHex
     )
-import Data.Word.Length
+import Data.NumberLength.Word
     ( lengthWord
     , lengthWord16
     , lengthWord16hex
