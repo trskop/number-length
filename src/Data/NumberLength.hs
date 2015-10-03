@@ -45,11 +45,62 @@ import Data.NumberLength.Word
     )
 
 
+-- | Get number of digits of a number in base 10 and base 16. Note the
+-- following:
+--
+-- * There is no 'Num' constraint, so that type wrappers aren't forced to
+--   provide instance for it. There are also types represented by numbers, but
+--   they aren't numbers, e.g. telephone numbers.
+--
+-- * This type class doesn't handle signed numbers in very intuitive way. See
+--   also 'SignedNumberLength'.
+--
+-- * There is a special class for bounded numbers, see 'BoundedNumberLength',
+--   that provides similar functionality as 'Prelude.Bounded'.
 class NumberLength a where
+    -- | Get number of digits in base 10 for specified number. Note that if
+    -- number is signed, then this function will return length of absolute
+    -- number.
+    --
+    -- >>> numberLength (123 :: Int)
+    -- 3
+    -- >>> numberLength (-123 :: Int)
+    -- 3
+    --
+    -- See also 'signedNumberLength'.
     numberLength :: a -> Int
+
+    -- | Get number of digits in base 16 for specified number. Note that if
+    -- number is signed, then this function will return length of absolute
+    -- number.
+    --
+    -- >>> numberLengthHex (123 :: Int)  -- 123 = 7b in hex
+    -- 2
+    -- >>> numberLengthHex (-123 :: Int)
+    -- 2
+    --
+    -- See also 'signedNumberLengthHex'.
     numberLengthHex :: a -> Int
 
+-- | Get number of digits of a signed number in base 10 and base 16.
 class NumberLength a => SignedNumberLength a where
+    {-# MINIMAL signedNumberLengthHex #-}
+
+    -- | Get number of digits in base 10 for specified number.
+    --
+    -- >>> signedNumberLength (123 :: Int)
+    -- 3
+    -- >>> signedNumberLength (-123 :: Int)
+    -- 4
+    --
+    -- Default implementation provided if @a@ has also 'Num' and 'Ord'
+    -- instances:
+    --
+    -- @
+    -- 'signedNumberLength' n = signLength + 'numberLength' n
+    --   where
+    --     signLength = if n < 0 then 1 else 0
+    -- @
     signedNumberLength :: a -> Int
 
     default signedNumberLength :: (Num a, Ord a) => a -> Int
@@ -57,10 +108,25 @@ class NumberLength a => SignedNumberLength a where
       where
         signLength = if n < 0 then 1 else 0
 
+    -- | Get number of digits in base 16 for specified number.
+    --
+    -- >>> signedNumberLengthHex (123 :: Int)
+    -- 2
+    -- >>> signedNumberLengthHex (-123 :: Int)
+    -- 16
+    --
+    -- Negative number is shown as ones' complement, e.g. @(-123 :: Int) =
+    -- ffffffffffffff85@ on 64 bit platform.
     signedNumberLengthHex :: a -> Int
 
+-- | Get maximum number of digits of a number in base 10 and 16. Minimal number
+-- of digits is considered to be always 1, and therefore there is no method for
+-- it.
 class NumberLength a => BoundedNumberLength a where
+    -- | Get maximum number of digits of a number in base 10.
     maxNumberLength :: Proxy a -> Int
+
+    -- | Get maximum number of digits of a number in base 16.
     maxNumberLengthHex :: Proxy a -> Int
 
 -- {{{ Int* -------------------------------------------------------------------
