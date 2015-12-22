@@ -58,14 +58,15 @@ import Data.NumberLength.Word
 -- following:
 --
 -- * There is no 'Num' constraint, so that type wrappers aren't forced to
---   provide instance for it. There are also types represented by numbers, but
---   they aren't numbers, e.g. telephone numbers.
+--   provide instance for it. This is because there are things represented
+--   using numbers, but they aren't numbers, e.g. telephone numbers.
 --
--- * This type class doesn't handle signed numbers in very intuitive way. See
+-- * This type class doesn't handle signed numbers, in an intuitive way. See
 --   also 'SignedNumberLength'.
 --
 -- * There is a special class for bounded numbers, see 'BoundedNumberLength',
---   that provides similar functionality as 'Prelude.Bounded'.
+--   that provides similar functionality as 'Prelude.Bounded', but for number
+--   of digits in a number.
 class NumberLength a where
     -- | Get number of digits in base 10 for specified number. Note that if
     -- number is signed, then this function will return length of absolute

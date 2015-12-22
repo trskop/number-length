@@ -1,14 +1,33 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 -- |
 -- Module:       $HEADER$
--- Description:  Get number of digits of a Int-family number in decimal or
---               hexadecimal representation.
+-- Description:  Get number of digits of a number from a Int-family of numbers
+--               in decimal or hexadecimal representation.
+
 -- Copyright:    (c) 2015, Peter Trško
 -- License:      BSD3
 --
 -- Stability:    experimental
 -- Portability:  NoImplicitPrelude
+--
+-- Get number of digits of a number from a 'Int'-family of numbers in decimal
+-- or hexadecimal representation.
 module Data.NumberLength.Int
+    (
+    -- * Decimal
+      lengthInt
+    , lengthInt8
+    , lengthInt16
+    , lengthInt32
+    , lengthInt64
+
+    -- * Hexadecimal
+    , lengthIntHex
+    , lengthInt8hex
+    , lengthInt16hex
+    , lengthInt32hex
+    , lengthInt64hex
+    )
   where
 
 import Prelude

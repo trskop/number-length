@@ -25,7 +25,8 @@ import Data.Word (Word)
 import Text.Show (Show(show))
 
 
--- | Returns one of its arguments, depending on bit size of 'Word'.
+-- | Returns one of its arguments, depending on bit size of 'Word' type on
+-- current hardware.
 either32or64
     :: a
     -- ^ Used in case when 'Word' is 32bit long.

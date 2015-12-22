@@ -1,14 +1,32 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 -- |
 -- Module:       $HEADER$
--- Description:  Get number of digits of a Word-family number in decimal or
---               hexadecimal representation.
+-- Description:  Get number of digits of a number from a Word-family of numbers
+--               in decimal or hexadecimal representation.
 -- Copyright:    (c) 2015, Peter Trško
 -- License:      BSD3
 --
 -- Stability:    experimental
 -- Portability:  NoImplicitPrelude
+--
+-- Get number of digits of a number from a 'Word'-family of numbers in decimal
+-- or hexadecimal representation.
 module Data.NumberLength.Word
+    (
+    -- * Decimal
+      lengthWord
+    , lengthWord8
+    , lengthWord16
+    , lengthWord32
+    , lengthWord64
+
+    -- * Hexadecimal
+    , lengthWordHex
+    , lengthWord8hex
+    , lengthWord16hex
+    , lengthWord32hex
+    , lengthWord64hex
+    )
   where
 
 import Prelude
