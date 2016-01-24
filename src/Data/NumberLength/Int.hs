@@ -3,8 +3,7 @@
 -- Module:       $HEADER$
 -- Description:  Get number of digits of a number from a Int-family of numbers
 --               in decimal or hexadecimal representation.
-
--- Copyright:    (c) 2015, Peter Trško
+-- Copyright:    (c) 2015-2016, Peter Trško
 -- License:      BSD3
 --
 -- Stability:    experimental
@@ -77,8 +76,9 @@ lengthInt16 n
 
 lengthInt32 :: Int32 -> Int
 lengthInt32 n
-  | n < 0     = go (negate (fromIntegral n))
-  | otherwise = go (fromIntegral n)
+  | n == minBound = 10  -- "negate minBound" is out of range of Int32.
+  | n < 0         = go (negate (fromIntegral n))
+  | otherwise     = go (fromIntegral n)
   where
     -- Maximum is 2147483647 for positive and 2147483648 for negative integer.
     go :: Int -> Int
@@ -112,8 +112,41 @@ lengthInt64 n
 {-# INLINE lengthInt64 #-}
 
 lengthInt :: Int -> Int
-lengthInt n =
-    lengthInt32 (fromIntegral n) `either32or64` lengthInt64 (fromIntegral n)
+lengthInt n = l32 `either32or64` l64
+  where
+    -- Same code as lengthInt64:
+    l64
+      | n == minBound = 19 -- "negate minBound" is out of range of Int64
+      | n < 0         = go (negate n)
+      | otherwise     = go n
+      where
+        -- Maximum is 9223372036854775807 for positive and 9223372036854775808
+        -- for negative integer.
+        go m
+          | m < 10                 = 1
+          | m < 100                = 2
+          | m < 1000               = 3
+          | m < 10000              = 4
+          | m >= 10000000000000000 = 16 + go (m `quot` 10000000000000000)
+          | m >= 100000000         = 8  + go (m `quot` 100000000)
+          | otherwise              = 4  + go (m `quot` 10000)
+            -- m >= 10000
+
+    -- Same code as lengthInt32:
+    l32
+      | n == minBound = 10  -- "negate minBound" is out of range of Int32.
+      | n < 0         = go (negate n)
+      | otherwise     = go n
+      where
+        -- Maximum is 2147483647 for positive and 2147483648 for negative integer.
+        go m
+          | m < 10         = 1
+          | m < 100        = 2
+          | m < 1000       = 3
+          | m < 10000      = 4
+          | m >= 100000000 = 8 + go (m `quot` 100000000)
+          | otherwise      = 4 + go (m `quot` 10000)
+            -- m >= 10000
 {-# INLINE lengthInt #-}
 
 -- }}} Decimal ----------------------------------------------------------------
@@ -144,8 +177,9 @@ lengthInt16hex n
 
 lengthInt32hex :: Int32 -> Int
 lengthInt32hex n
-  | n < 0     = go (negate (fromIntegral n))
-  | otherwise = go (fromIntegral n)
+  | n == minBound = 10  -- "negate minBound" is out of range of Int32.
+  | n < 0         = go (negate (fromIntegral n))
+  | otherwise     = go (fromIntegral n)
   where
     -- Maximum is 2147483647 = 0x7fffffff for positive and
     -- 2147483648 = 0x80000000 for negative integer.
@@ -178,8 +212,41 @@ lengthInt64hex n
 {-# INLINE lengthInt64hex #-}
 
 lengthIntHex :: Int -> Int
-lengthIntHex n = lengthInt32hex (fromIntegral n)
-    `either32or64` lengthInt64hex (fromIntegral n)
+lengthIntHex n = l32hex `either32or64` l64hex
+  where
+    -- Same code as lengthInt64hex:
+    l64hex
+      | n == minBound = 16 -- "negate minBound" is out of range of Int64
+      | n < 0         = if n == minBound then 16 else go (negate n)
+      | otherwise     = go n
+      where
+        -- Maximum is 9223372036854775807 = 0x7fffffffffffffff for positive and
+        -- 9223372036854775808 = 0x8000000000000000 for negative integer.
+        go m
+          | m <  0x10        = 1
+          | m <  0x100       = 2
+          | m <  0x1000      = 3
+          | m <  0x10000     = 4
+          | m >= 0x100000000 = 8  + go (m `quot` 0x100000000)
+          | otherwise        = 4  + go (m `quot` 0x10000)
+            -- m >= 0x10000
+
+    -- Same code as lengthInt32hex:
+    l32hex
+      | n == minBound = 10  -- "negate minBound" is out of range of Int32.
+      | n < 0         = go (negate n)
+      | otherwise     = go n
+      where
+        -- Maximum is 2147483647 = 0x7fffffff for positive and
+        -- 2147483648 = 0x80000000 for negative integer.
+        go :: Int -> Int
+        go m
+          | m < 0x10    = 1
+          | m < 0x100   = 2
+          | m < 0x1000  = 3
+          | m < 0x10000 = 4
+          | otherwise   = 4 + go (m `quot` 0x10000)
+            -- m >= 0x10000
 {-# INLINE lengthIntHex #-}
 
 -- }}} Hexadecimal ------------------------------------------------------------
