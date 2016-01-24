@@ -12,7 +12,7 @@ license:                BSD3
 license-file:           LICENSE
 author:                 Peter Trško
 maintainer:             peter.trsko@gmail.com
-copyright:              (c) 2015, Peter Trško
+copyright:              (c) 2015-2016, Peter Trško
 category:               Data
 build-type:             Simple
 cabal-version:          >=1.10
@@ -93,6 +93,37 @@ test-suite unit-tests
   else
     build-depends:
         base >=4.7 && <4.9
+
+  ghc-options:          -Wall -fwarn-tabs
+
+  if flag(pedantic)
+    ghc-options:
+      -fwarn-implicit-prelude
+      -fwarn-missing-import-lists
+--    -Werror
+
+benchmark benchmark
+  hs-source-dirs:       src, test
+  type:                 exitcode-stdio-1.0
+  main-is:              benchmark.hs
+--other-modules:
+
+  default-language:     Haskell2010
+  other-extensions:     NoImplicitPrelude
+
+  -- {{{ Dependencies of the library ------------------------------------------
+  if flag(old-base)
+    build-depends:
+        base >=4.5 && <4.7
+      , tagged >=0.6 && <0.9
+  else
+    build-depends:
+        base >=4.7 && <4.9
+  -- }}} Dependencies of the library ------------------------------------------
+
+  build-depends:
+      criterion >= 1.0.0.0 && < 2
+    , number-length
 
   ghc-options:          -Wall -fwarn-tabs
 
