@@ -93,7 +93,7 @@ test-suite unit-tests
       , tagged >=0.6 && <0.9
   else
     build-depends:
-        base >=4.7 && <4.9
+        base >=4.7 && <5
 
   ghc-options:          -Wall -fwarn-tabs
 
@@ -119,7 +119,7 @@ benchmark benchmark
       , tagged >=0.6 && <0.9
   else
     build-depends:
-        base >=4.7 && <4.9
+        base >=4.7 && <5
   -- }}} Dependencies of the library ------------------------------------------
 
   build-depends:
