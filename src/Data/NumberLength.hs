@@ -4,7 +4,7 @@
 -- Module:       $HEADER$
 -- Description:  Polymorphic interface for getting number of digits of a number
 --               in decimal or hexadecimal representation.
--- Copyright:    (c) 2015, Peter Trško
+-- Copyright:    (c) 2015-2016, Peter Trško
 -- License:      BSD3
 --
 -- Stability:    experimental
@@ -69,8 +69,8 @@ import Data.NumberLength.Word
 --   of digits in a number.
 class NumberLength a where
     -- | Get number of digits in base 10 for specified number. Note that if
-    -- number is signed, then this function will return length of absolute
-    -- number.
+    -- number is signed, then this function will return length of its absolute
+    -- value.
     --
     -- >>> numberLength (123 :: Int)
     -- 3
@@ -81,8 +81,8 @@ class NumberLength a where
     numberLength :: a -> Int
 
     -- | Get number of digits in base 16 for specified number. Note that if
-    -- number is signed, then this function will return length of absolute
-    -- number.
+    -- number is signed, then this function will return length of its absolute
+    -- value.
     --
     -- >>> numberLengthHex (123 :: Int)  -- 123 = 7b in hex
     -- 2
