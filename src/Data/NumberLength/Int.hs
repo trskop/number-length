@@ -177,7 +177,7 @@ lengthInt16hex n
 
 lengthInt32hex :: Int32 -> Int
 lengthInt32hex n
-  | n == minBound = 10  -- "negate minBound" is out of range of Int32.
+  | n == minBound = 8   -- "negate minBound" is out of range of Int32.
   | n < 0         = go (negate (fromIntegral n))
   | otherwise     = go (fromIntegral n)
   where
@@ -233,7 +233,7 @@ lengthIntHex n = l32hex `either32or64` l64hex
 
     -- Same code as lengthInt32hex:
     l32hex
-      | n == minBound = 10  -- "negate minBound" is out of range of Int32.
+      | n == minBound = 8   -- "negate minBound" is out of range of Int32.
       | n < 0         = go (negate n)
       | otherwise     = go n
       where
