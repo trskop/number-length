@@ -4,8 +4,8 @@ synopsis:
   Number of digits in a number in decimal and hexadecimal representation.
 description:
   There are situations when it is necessary to know the length of a number in
-  decimal or hexadecimal form. In example when serializing it in to human
-  readable format.
+  decimal or hexadecimal form. In example when allocating buffer while
+  serializing a number in to binary or human readable format.
 
 homepage:               https://github.com/trskop/number-length
 license:                BSD3
@@ -133,3 +133,12 @@ benchmark benchmark
       -fwarn-implicit-prelude
       -fwarn-missing-import-lists
 --    -Werror
+
+source-repository head
+  type:                 git
+  location:             git://github.com/trskop/number-length.git
+
+source-repository this
+  type:                 git
+  location:             git://github.com/trskop/number-length.git
+  tag:                  v0.1.0.0
