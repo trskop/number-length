@@ -196,7 +196,7 @@ lengthInt32hex n
 lengthInt64hex :: Int64 -> Int
 lengthInt64hex n
   | n == minBound = 16 -- "negate minBound" is out of range of Int64
-  | n < 0         = if n == minBound then 16 else go (negate n)
+  | n < 0         = go (negate n)
   | otherwise     = go n
   where
     -- Maximum is 9223372036854775807 = 0x7fffffffffffffff for positive and
@@ -217,7 +217,7 @@ lengthIntHex n = l32hex `either32or64` l64hex
     -- Same code as lengthInt64hex:
     l64hex
       | n == minBound = 16 -- "negate minBound" is out of range of Int64
-      | n < 0         = if n == minBound then 16 else go (negate n)
+      | n < 0         = go (negate n)
       | otherwise     = go n
       where
         -- Maximum is 9223372036854775807 = 0x7fffffffffffffff for positive and
