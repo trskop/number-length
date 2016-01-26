@@ -1,5 +1,5 @@
 name:                   number-length
-version:                0.1.0.0
+version:                0.1.0.1
 synopsis:
   Number of digits in a number in decimal and hexadecimal representation.
 description:
