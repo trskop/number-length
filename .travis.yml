@@ -35,10 +35,23 @@ install:
 
 script:
   # Option -fpedantic turns on additional wornings in addition to -Wall.
-  - cabal configure -fpedantic --enable-tests --enable-benchmarks
+  - case "$CABALVER" in
+      "1.18")
+        cabal configure -fpedantic --enable-tests --enable-benchmarks --enable-library-coverage
+        ;;
+      *)
+        cabal configure -fpedantic --enable-tests --enable-benchmarks --enable-coverage
+        ;;
+    esac
   - cabal build
-  - cabal test
+  - cabal test --show-details=always
   - cabal bench
+  - cabal haddock
 
   # Following line tests if sdist package is created correctly.
   - cabal sdist | sed -rn '$s/^[^:]+:\s+//p' | xargs cabal install --enable-tests --enable-benchmarks
+
+after_script:
+  - cabal install hpc-coveralls
+  - export PATH=$HOME/.cabal/bin:$PATH
+  - hpc-coveralls --coverage-mode=StrictlyFullLines --exclude-dir=test unit-tests
