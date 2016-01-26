@@ -36,7 +36,7 @@ install:
 script:
   # Option -fpedantic turns on additional wornings in addition to -Wall.
   - case "$CABALVER" in
-      "1.18")
+      1.1*)
         cabal configure -fpedantic --enable-tests --enable-benchmarks --enable-library-coverage
         ;;
       *)
