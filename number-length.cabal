@@ -92,7 +92,7 @@ test-suite unit-tests
       -- depend on it have less restrictive bounds.
     , test-framework-hunit >=0.2.6 && <1
       -- ^ Lower versions have more restrictive bounds on test-framework.
-    , test-framework-quickcheck2 >=0.3
+    , test-framework-quickcheck2 >=0.3 && <1
       -- ^ There were changes in QuickCheck bounds in 0.2 branch and last one
       -- on it had a compilation failure on Hackage.
     -- }}} Test-suite dependencies --------------------------------------------
@@ -133,7 +133,7 @@ benchmark benchmark
   -- }}} Dependencies of the library ------------------------------------------
 
   build-depends:
-      criterion >= 1.0.0.0 && < 2
+      criterion >=1.0.0.0 && <2
     , number-length
 
   ghc-options:          -Wall -fwarn-tabs
