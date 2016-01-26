@@ -2,7 +2,7 @@
 -- |
 -- Module:       $HEADER$
 -- Description:  TODO
--- Copyright:    (c) 2015, Peter Trško
+-- Copyright:    (c) 2015-2016, Peter Trško
 -- License:      BSD3
 --
 -- Stability:    experimental
@@ -10,15 +10,19 @@
 module TestCase.Data.NumberLength
   where
 
-import Prelude (Bounded(maxBound))
+import Prelude (Bounded(maxBound), Integral, fromIntegral)
 
 import Control.Applicative (liftA2)
 import Data.Bool (Bool)
 import Data.Eq (Eq((==)))
-import Data.Function (($))
+import Data.Function ((.), ($))
 import Data.Int (Int, Int16, Int32, Int64, Int8)
-import Data.Proxy (Proxy(Proxy))
+import Data.List (length)
+import Data.Proxy (Proxy(Proxy), asProxyTypeOf)
+import Data.String (String)
 import Data.Word (Word, Word16, Word32, Word64, Word8)
+import Text.Printf (PrintfArg, printf)
+import Text.Show (Show(show))
 
 import Test.HUnit ((@?=))
 import Test.Framework (Test, testGroup)
@@ -26,8 +30,9 @@ import Test.Framework.Providers.HUnit (testCase)
 import Test.Framework.Providers.QuickCheck2 (testProperty)
 
 import Data.NumberLength
-    ( NumberLength(numberLength, numberLengthHex)
-    , BoundedNumberLength(maxNumberLength, maxNumberLengthHex)
+    ( BoundedNumberLength(maxNumberLength, maxNumberLengthHex)
+    , NumberLength(numberLength, numberLengthHex)
+    , SignedNumberLength(signedNumberLength, signedNumberLengthHex)
     )
 import Data.NumberLength.Int
     ( lengthInt
@@ -82,6 +87,28 @@ tests =
             , testProperty "Word16" $ numberLengthHex <==> lengthWord16hex
             , testProperty "Word32" $ numberLengthHex <==> lengthWord32hex
             , testProperty "Word64" $ numberLengthHex <==> lengthWord64hex
+            ]
+        ]
+
+    , testGroup "class SignedNumberLength"
+        [ testGroup "signedNumberLength"
+            [ testProperty "Int"   $ signedNumberLength <==> lengthOfShow int
+            , testProperty "Int8"  $ signedNumberLength <==> lengthOfShow int8
+            , testProperty "Int16" $ signedNumberLength <==> lengthOfShow int16
+            , testProperty "Int32" $ signedNumberLength <==> lengthOfShow int32
+            , testProperty "Int64" $ signedNumberLength <==> lengthOfShow int64
+            ]
+        , testGroup "signedNumberLengthHex"
+            [ testProperty "Int"
+                $ signedNumberLengthHex <==> lengthOfHex int   word
+            , testProperty "Int8"
+                $ signedNumberLengthHex <==> lengthOfHex int8  word8
+            , testProperty "Int16"
+                $ signedNumberLengthHex <==> lengthOfHex int16 word16
+            , testProperty "Int32"
+                $ signedNumberLengthHex <==> lengthOfHex int32 word32
+            , testProperty "Int64"
+                $ signedNumberLengthHex <==> lengthOfHex int64 word64
             ]
         ]
 
@@ -145,6 +172,20 @@ tests =
     word16 = Proxy :: Proxy Word16
     word32 = Proxy :: Proxy Word32
     word64 = Proxy :: Proxy Word64
+
+lengthOfShow :: Show a => Proxy a -> a -> Int
+lengthOfShow _proxy = length . show
+
+lengthOfHex
+    :: (Integral a, Integral b, PrintfArg b)
+    => Proxy a
+    -> Proxy b
+    -> a
+    -> Int
+lengthOfHex proxyA proxyB a = length (hex :: String)
+  where
+    hex = printf "%x" (b `asProxyTypeOf` proxyB)
+    b = fromIntegral (a `asProxyTypeOf` proxyA)
 
 (<==>) :: Eq b => (a -> b) -> (a -> b) -> a -> Bool
 (<==>) = liftA2 (==)
