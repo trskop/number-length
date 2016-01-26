@@ -35,9 +35,12 @@ install:
 
 script:
   # Option -fpedantic turns on additional wornings in addition to -Wall.
+  #
+  # HPC fails on older versions (1.16 here) due to a Cabal bug:
+  #
+  #   https://github.com/haskell/cabal/issues/1049
   - case "$CABALVER" in
       1.16)
-        # HPC fails on older versions due to Cabal bug: https://github.com/haskell/cabal/issues/1049
         cabal configure -fpedantic --enable-tests --enable-benchmarks
         ;;
       1.18)
@@ -56,7 +59,7 @@ script:
   - cabal sdist | sed -rn '$s/^[^:]+:\s+//p' | xargs cabal install --enable-tests --enable-benchmarks
 
 after_script:
-  # HPC fails on older versions due to Cabal bug: https://github.com/haskell/cabal/issues/1049
+  # HPC fails on older versions due to a Cabal bug: https://github.com/haskell/cabal/issues/1049
   - if [ "$CABALVER" != "1.16" ]; then
         cabal install hpc-coveralls;
         export PATH=$HOME/.cabal/bin:$PATH;
