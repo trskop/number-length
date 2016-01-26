@@ -6,6 +6,7 @@
 [![BSD3 License](http://img.shields.io/badge/license-BSD3-brightgreen.svg)][tl;dr Legal: BSD3]
 
 [![Build](https://travis-ci.org/trskop/number-length.svg)](https://travis-ci.org/trskop/number-length)
+[![Coverage Status](https://coveralls.io/repos/github/trskop/number-length/badge.svg?branch=master)](https://coveralls.io/github/trskop/number-length?branch=master)
 
 
 ## Description
