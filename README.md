@@ -17,6 +17,13 @@ decimal or hexadecimal form. In example when allocating buffer while
 serializing a number in to binary or human readable format.
 
 
+    λ> numberLength (123 :: Int)
+    3
+
+    λ> numberLengthHex (123 :: Int)  -- 123 = 7b in hex
+    2
+
+
 ## Building Options
 
 * `-fpedantic` (disabled by default)
