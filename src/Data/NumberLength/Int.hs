@@ -13,14 +13,14 @@
 -- or hexadecimal representation.
 module Data.NumberLength.Int
     (
-    -- * Decimal
+    -- * Decimal (base 10)
       lengthInt
     , lengthInt8
     , lengthInt16
     , lengthInt32
     , lengthInt64
 
-    -- * Hexadecimal
+    -- * Hexadecimal (base 16)
     , lengthIntHex
     , lengthInt8hex
     , lengthInt16hex
@@ -46,6 +46,7 @@ import Data.NumberLength.Internal (either32or64)
 
 -- {{{ Decimal ----------------------------------------------------------------
 
+-- | Number of digits in a @number :: 'Int8'@ in base 10.
 lengthInt8 :: Int8 -> Int
 lengthInt8 n
   | n < 0         = go (negate (fromIntegral n))
@@ -59,6 +60,7 @@ lengthInt8 n
       | otherwise  = 3
 {-# INLINE lengthInt8 #-}
 
+-- | Number of digits in a @number :: 'Int16'@ in base 10.
 lengthInt16 :: Int16 -> Int
 lengthInt16 n
   | n < 0     = go (negate (fromIntegral n))
@@ -74,6 +76,7 @@ lengthInt16 n
       | otherwise  = 5
 {-# INLINE lengthInt16 #-}
 
+-- | Number of digits in a @number :: 'Int32'@ in base 10.
 lengthInt32 :: Int32 -> Int
 lengthInt32 n
   | n == minBound = 10  -- "negate minBound" is out of range of Int32.
@@ -92,6 +95,7 @@ lengthInt32 n
         -- m >= 10000
 {-# INLINE lengthInt32 #-}
 
+-- | Number of digits in a @number :: 'Int64'@ in base 10.
 lengthInt64 :: Int64 -> Int
 lengthInt64 n
   | n == minBound = 19 -- "negate minBound" is out of range of Int64
@@ -111,6 +115,7 @@ lengthInt64 n
         -- m >= 10000
 {-# INLINE lengthInt64 #-}
 
+-- | Number of digits in a @number :: 'Int'@ in base 10.
 lengthInt :: Int -> Int
 lengthInt n = l32 `either32or64` l64
   where
@@ -153,6 +158,7 @@ lengthInt n = l32 `either32or64` l64
 
 -- {{{ Hexadecimal ------------------------------------------------------------
 
+-- | Number of digits in a @number :: 'Int8'@ in base 16.
 lengthInt8hex :: Int8 -> Int
 lengthInt8hex n
   | n < 16 && n > -16 = 1
@@ -160,6 +166,7 @@ lengthInt8hex n
   -- Maximum is 127 = 0x7f for positive and 128 = 0x80 for negative integer.
 {-# INLINE lengthInt8hex #-}
 
+-- | Number of digits in a @number :: 'Int16'@ in base 16.
 lengthInt16hex :: Int16 -> Int
 lengthInt16hex n
   | n < 0     = go (negate (fromIntegral n))
@@ -175,6 +182,7 @@ lengthInt16hex n
       | otherwise  = 4
 {-# INLINE lengthInt16hex #-}
 
+-- | Number of digits in a @number :: 'Int32'@ in base 16.
 lengthInt32hex :: Int32 -> Int
 lengthInt32hex n
   | n == minBound = 8   -- "negate minBound" is out of range of Int32.
@@ -193,6 +201,7 @@ lengthInt32hex n
         -- m >= 0x10000
 {-# INLINE lengthInt32hex #-}
 
+-- | Number of digits in a @number :: 'Int64'@ in base 16.
 lengthInt64hex :: Int64 -> Int
 lengthInt64hex n
   | n == minBound = 16 -- "negate minBound" is out of range of Int64
@@ -211,6 +220,7 @@ lengthInt64hex n
         -- m >= 0x10000
 {-# INLINE lengthInt64hex #-}
 
+-- | Number of digits in a @number :: 'Int'@ in base 16.
 lengthIntHex :: Int -> Int
 lengthIntHex n = l32hex `either32or64` l64hex
   where
