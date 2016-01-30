@@ -17,7 +17,6 @@ There are situations when it is necessary to know the length of a number in
 decimal or hexadecimal form. In example when allocating buffer while
 serializing a number in to binary or human readable format.
 
-
     λ> numberLength (123 :: Int)
     3
 
@@ -45,7 +44,7 @@ afraid to contact author using GitHub or by e-mail.
 
 [Hackage: number-length]:
   http://hackage.haskell.org/package/number-length
-  "number-length package on Hackage"
+  "Package number-length on Hackage"
 [Haskell.org]:
   http://www.haskell.org
   "The Haskell Programming Language"
