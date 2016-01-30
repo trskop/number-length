@@ -7,7 +7,7 @@
 --
 -- Stability:    experimental
 -- Portability:  NoImplicitPrelude
-module TestCase.Data.NumberLength
+module TestCase.Data.NumberLength (tests)
   where
 
 import Prelude (Bounded(maxBound), Integral, fromIntegral)
@@ -24,10 +24,10 @@ import Data.Word (Word, Word16, Word32, Word64, Word8)
 import Text.Printf (PrintfArg, printf)
 import Text.Show (Show(show))
 
-import Test.HUnit ((@?=))
 import Test.Framework (Test, testGroup)
 import Test.Framework.Providers.HUnit (testCase)
 import Test.Framework.Providers.QuickCheck2 (testProperty)
+import Test.HUnit ((@?=))
 
 import Data.NumberLength
     ( BoundedNumberLength(maxNumberLength, maxNumberLengthHex)

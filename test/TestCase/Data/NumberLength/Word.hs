@@ -2,12 +2,12 @@
 -- |
 -- Module:       $HEADER$
 -- Description:  TODO
--- Copyright:    (c) 2015, Peter Trško
+-- Copyright:    (c) 2015-2016, Peter Trško
 -- License:      BSD3
 --
 -- Stability:    experimental
 -- Portability:  NoImplicitPrelude
-module TestCase.Data.NumberLength.Word
+module TestCase.Data.NumberLength.Word (tests)
   where
 
 import Prelude (Bounded(maxBound, minBound), Integral, fromIntegral)
@@ -23,10 +23,10 @@ import Data.Word (Word, Word16, Word32, Word64, Word8)
 import Text.Printf (PrintfArg, printf)
 import Text.Show (Show(show))
 
-import Test.HUnit (Assertion, (@?=))
 import Test.Framework (Test)
 import Test.Framework.Providers.HUnit (testCase)
 import Test.Framework.Providers.QuickCheck2 (testProperty)
+import Test.HUnit (Assertion, (@?=))
 
 import Data.NumberLength.Word
     ( lengthWord
@@ -66,15 +66,15 @@ tests =
 
     , testCase "lengthWord8hex minBound" test_lengthWord8hex_minBound
     , testCase "lengthWord8hex maxBound" test_lengthWord8hex_maxBound
-    , testProperty "lengthWord8hex = length . show" property_lengthWord8
+    , testProperty "lengthWord8hex = length . show" property_lengthWord8hex
 
     , testCase "lengthWord16hex minBound" test_lengthWord16hex_minBound
     , testCase "lengthWord16hex maxBound" test_lengthWord16hex_maxBound
-    , testProperty "lengthWord16hex = length . show" property_lengthWord16
+    , testProperty "lengthWord16hex = length . show" property_lengthWord16hex
 
     , testCase "lengthWord32hex minBound" test_lengthWord32hex_minBound
     , testCase "lengthWord32hex maxBound" test_lengthWord32hex_maxBound
-    , testProperty "lengthWord32hex = length . show" property_lengthWord32
+    , testProperty "lengthWord32hex = length . show" property_lengthWord32hex
 
     , testCase "lengthWord64hex minBound" test_lengthWord64hex_minBound
     , testCase "lengthWord64hex maxBound" test_lengthWord64hex_maxBound

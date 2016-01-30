@@ -2,12 +2,12 @@
 -- |
 -- Module:       $HEADER$
 -- Description:  TODO
--- Copyright:    (c) 2015, Peter Trško
+-- Copyright:    (c) 2015-2016, Peter Trško
 -- License:      BSD3
 --
 -- Stability:    experimental
 -- Portability:  NoImplicitPrelude
-module TestCase.Data.NumberLength.Int
+module TestCase.Data.NumberLength.Int (tests)
   where
 
 import Prelude
@@ -28,10 +28,10 @@ import Data.String (String)
 import Text.Printf (PrintfArg, printf)
 import Text.Show (Show(show))
 
-import Test.HUnit (Assertion, (@?=))
 import Test.Framework (Test)
 import Test.Framework.Providers.HUnit (testCase)
 import Test.Framework.Providers.QuickCheck2 (testProperty)
+import Test.HUnit (Assertion, (@?=))
 
 import Data.NumberLength.Int
     ( lengthInt
@@ -49,45 +49,45 @@ import Data.NumberLength.Int
 
 tests :: [Test]
 tests =
-    [ testCase     "lengthInt8 minBound"         test_lengthInt8_minBound
-    , testCase     "lengthInt8 maxBound"         test_lengthInt8_maxBound
-    , testProperty "lengthInt8 = length . show"  property_lengthInt8
+    [ testCase "lengthInt8 minBound" test_lengthInt8_minBound
+    , testCase "lengthInt8 maxBound" test_lengthInt8_maxBound
+    , testProperty "lengthInt8 = length . show" property_lengthInt8
 
-    , testCase     "lengthInt16 minBound"        test_lengthInt16_minBound
-    , testCase     "lengthInt16 maxBound"        test_lengthInt16_maxBound
+    , testCase "lengthInt16 minBound" test_lengthInt16_minBound
+    , testCase "lengthInt16 maxBound" test_lengthInt16_maxBound
     , testProperty "lengthInt16 = length . show" property_lengthInt16
 
-    , testCase     "lengthInt32 minBound"        test_lengthInt32_minBound
-    , testCase     "lengthInt32 maxBound"        test_lengthInt32_maxBound
+    , testCase "lengthInt32 minBound" test_lengthInt32_minBound
+    , testCase "lengthInt32 maxBound" test_lengthInt32_maxBound
     , testProperty "lengthInt32 = length . show" property_lengthInt32
 
-    , testCase     "lengthInt64 minBound"        test_lengthInt64_minBound
-    , testCase     "lengthInt64 maxBound"        test_lengthInt64_maxBound
+    , testCase "lengthInt64 minBound" test_lengthInt64_minBound
+    , testCase "lengthInt64 maxBound" test_lengthInt64_maxBound
     , testProperty "lengthInt64 = length . show" property_lengthInt64
 
-    , testCase     "lengthInt minBound"          test_lengthInt_minBound
-    , testCase     "lengthInt maxBound"          test_lengthInt_maxBound
-    , testProperty "lengthInt = length . show"   property_lengthInt
+    , testCase "lengthInt minBound" test_lengthInt_minBound
+    , testCase "lengthInt maxBound" test_lengthInt_maxBound
+    , testProperty "lengthInt = length . show" property_lengthInt
 
-    , testCase     "lengthInt8hex minBound"         test_lengthInt8hex_minBound
-    , testCase     "lengthInt8hex maxBound"         test_lengthInt8hex_maxBound
-    , testProperty "lengthInt8hex = length . show"  property_lengthInt8hex
+    , testCase "lengthInt8hex minBound" test_lengthInt8hex_minBound
+    , testCase "lengthInt8hex maxBound" test_lengthInt8hex_maxBound
+    , testProperty "lengthInt8hex = length . show" property_lengthInt8hex
 
-    , testCase     "lengthInt16hex minBound"        test_lengthInt16hex_minBound
-    , testCase     "lengthInt16hex maxBound"        test_lengthInt16hex_maxBound
+    , testCase "lengthInt16hex minBound" test_lengthInt16hex_minBound
+    , testCase "lengthInt16hex maxBound" test_lengthInt16hex_maxBound
     , testProperty "lengthInt16hex = length . show" property_lengthInt16hex
 
-    , testCase     "lengthInt32hex minBound"        test_lengthInt32hex_minBound
-    , testCase     "lengthInt32hex maxBound"        test_lengthInt32hex_maxBound
+    , testCase "lengthInt32hex minBound" test_lengthInt32hex_minBound
+    , testCase "lengthInt32hex maxBound" test_lengthInt32hex_maxBound
     , testProperty "lengthInt32hex = length . show" property_lengthInt32hex
 
-    , testCase     "lengthInt64hex minBound"        test_lengthInt64hex_minBound
-    , testCase     "lengthInt64hex maxBound"        test_lengthInt64hex_maxBound
+    , testCase "lengthInt64hex minBound" test_lengthInt64hex_minBound
+    , testCase "lengthInt64hex maxBound" test_lengthInt64hex_maxBound
     , testProperty "lengthInt64hex = length . show" property_lengthInt64hex
 
-    , testCase     "lengthIntHex minBound"          test_lengthIntHex_minBound
-    , testCase     "lengthIntHex maxBound"          test_lengthIntHex_maxBound
-    , testProperty "lengthIntHex = length . show"   property_lengthIntHex
+    , testCase "lengthIntHex minBound" test_lengthIntHex_minBound
+    , testCase "lengthIntHex maxBound" test_lengthIntHex_maxBound
+    , testProperty "lengthIntHex = length . show" property_lengthIntHex
     ]
 
 numberLengthDec :: Show n => n -> Int
