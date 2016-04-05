@@ -24,7 +24,6 @@ import Prelude(Num((+)), fromIntegral)
 
 import Data.Int (Int, Int16, Int32, Int64, Int8)
 import Data.Ord (Ord((<)))
-import Data.Proxy (Proxy)
 import Data.Word (Word, Word16, Word32, Word64, Word8)
 
 import Data.NumberLength.Int
@@ -134,10 +133,10 @@ class NumberLength a => SignedNumberLength a where
 -- it.
 class NumberLength a => BoundedNumberLength a where
     -- | Get maximum number of digits of a number in base 10.
-    maxNumberLength :: Proxy a -> Int
+    maxNumberLength :: proxy a -> Int
 
     -- | Get maximum number of digits of a number in base 16.
-    maxNumberLengthHex :: Proxy a -> Int
+    maxNumberLengthHex :: proxy a -> Int
 
 -- {{{ Int* -------------------------------------------------------------------
 
