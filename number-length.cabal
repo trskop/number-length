@@ -1,5 +1,5 @@
 name:                   number-length
-version:                0.1.0.1
+version:                0.2.0.0
 synopsis:
   Number of digits in a number in decimal and hexadecimal representation.
 description:
@@ -130,4 +130,4 @@ source-repository head
 source-repository this
   type:                 git
   location:             git://github.com/trskop/number-length.git
-  tag:                  v0.1.0.1
+  tag:                  v0.2.0.0
