@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE DefaultSignatures #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 -- |
@@ -20,11 +21,14 @@ module Data.NumberLength
     )
   where
 
-import Prelude(Num((+)), fromIntegral)
+import Prelude(Integer, Num((+)), fromIntegral)
 
 import Data.Int (Int, Int16, Int32, Int64, Int8)
 import Data.Ord (Ord((<)))
 import Data.Word (Word, Word16, Word32, Word64, Word8)
+#ifdef HAVE_NATURAL
+import Numeric.Natural (Natural)
+#endif
 
 import Data.NumberLength.Int
     ( lengthInt
@@ -38,7 +42,11 @@ import Data.NumberLength.Int
     , lengthInt8hex
     , lengthIntHex
     )
+import Data.NumberLength.Integer (lengthInteger, lengthIntegerHex)
 import Data.NumberLength.Internal (either32or64)
+#ifdef HAVE_NATURAL
+import Data.NumberLength.Natural (lengthNatural, lengthNaturalHex)
+#endif
 import Data.NumberLength.Word
     ( lengthWord
     , lengthWord16
@@ -239,3 +247,15 @@ instance BoundedNumberLength Word8 where
     maxNumberLengthHex _ = 2
 
 -- }}} Word* ------------------------------------------------------------------
+
+-- | /Since 0.2.0.0/
+instance NumberLength Integer where
+    numberLength = lengthInteger
+    numberLengthHex = lengthIntegerHex
+
+#ifdef HAVE_NATURAL
+-- | /Since 0.2.0.0/
+instance NumberLength Natural where
+    numberLength = lengthNatural
+    numberLengthHex = lengthNaturalHex
+#endif

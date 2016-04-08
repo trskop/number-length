@@ -39,6 +39,7 @@ library
   exposed-modules:
       Data.NumberLength
     , Data.NumberLength.Int
+    , Data.NumberLength.Integer
     , Data.NumberLength.Internal
     , Data.NumberLength.Word
   -- other-modules:
@@ -47,6 +48,13 @@ library
   other-extensions:     NoImplicitPrelude
 
   build-depends:        base >=4.5 && <5
+
+  if impl(ghc >=7.10.1)
+    -- Module Numeric.Natural providing new Natural type representing
+    -- non-negative arbitrary-precision integers was introduced in base
+    -- 4.8.0.0, which was bundled with GHC 7.10.1.
+    exposed-modules:    Data.NumberLength.Natural
+    cpp-options:        -DHAVE_NATURAL
 
   ghc-options:          -Wall -fwarn-tabs
   if flag(pedantic)
@@ -64,6 +72,12 @@ test-suite unit-tests
     , TestCase.Data.NumberLength
     , TestCase.Data.NumberLength.Int
     , TestCase.Data.NumberLength.Word
+
+    , Data.NumberLength
+    , Data.NumberLength.Int
+    , Data.NumberLength.Integer
+    , Data.NumberLength.Internal
+    , Data.NumberLength.Word
 
   default-language:     Haskell2010
   other-extensions:     DefaultSignatures, NoImplicitPrelude
@@ -103,7 +117,10 @@ benchmark benchmark
   hs-source-dirs:       src, test
   type:                 exitcode-stdio-1.0
   main-is:              benchmark.hs
---other-modules:
+  other-modules:
+      Data.NumberLength.Int
+    , Data.NumberLength.Internal
+    , Data.NumberLength.Word
 
   default-language:     Haskell2010
   other-extensions:     NoImplicitPrelude
