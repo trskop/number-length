@@ -14,14 +14,16 @@ module TestCase (tests)
 
 import Test.Framework (Test, testGroup)
 
-import qualified TestCase.Data.NumberLength.Int as NumberLength.Int (tests)
 import qualified TestCase.Data.NumberLength as NumberLength (tests)
-import qualified TestCase.Data.NumberLength.Word as NumberLength.Word (tests)
+import qualified TestCase.Data.NumberLength.Int as Int (tests)
+import qualified TestCase.Data.NumberLength.Integer as Integer (tests)
+import qualified TestCase.Data.NumberLength.Word as Word (tests)
 
 
 tests :: [Test]
 tests =
-    [ testGroup "Data.NumberLength.Int" NumberLength.Int.tests
-    , testGroup "Data.NumberLength.Word" NumberLength.Word.tests
+    [ testGroup "Data.NumberLength.Int" Int.tests
+    , testGroup "Data.NumberLength.Word" Word.tests
+    , testGroup "Data.NumberLength.Integer" Integer.tests
     , testGroup "Data.NumberLength" NumberLength.tests
     ]
