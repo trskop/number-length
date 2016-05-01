@@ -12,8 +12,9 @@ module TestCase.Data.NumberLength.Natural (tests)
 
 import Prelude
     ( Bounded(maxBound)
-    , Num((*))
+    , Num((-), (*))
     , fromIntegral
+    , (^)
     )
 
 import Control.Applicative (liftA2)
@@ -45,17 +46,29 @@ tests =
     , testCase "lengthNatural maxWord64" $ test_lengthNatural maxWord64
     , testCase "lengthNatural (maxWord64 * 2)"
         $ test_lengthNatural (maxWord64 * 2)
+    , testCase "lengthNatural (10 ^ maxWordDigits32 - 1)"
+        $ test_lengthNatural (10 ^ maxWordDigits32 - 1)
+    , testCase "lengthNatural (10 ^ maxWordDigits64 - 1)"
+        $ test_lengthNatural (10 ^ maxWordDigits64 - 1)
     , testProperty "lengthNatural = length . show" property_lengthNatural
 
     , testCase "lengthNaturalHex maxInt64" $ test_lengthNaturalHex maxInt64
     , testCase "lengthNaturalHex maxWord64" $ test_lengthNaturalHex maxWord64
     , testCase "lengthNaturalHex (maxWord64 * 2)"
         $ test_lengthNaturalHex (maxWord64 * 2)
+    , testCase "lengthNaturalHex (10 ^ maxWordDigits32hex - 1)"
+        $ test_lengthNaturalHex (16 ^ maxWordDigits32hex - 1)
+    , testCase "lengthNaturalHex (10 ^ maxWordDigits64hex - 1)"
+        $ test_lengthNaturalHex (16 ^ maxWordDigits64hex - 1)
     , testProperty "lengthNaturalHex = length . show" property_lengthNaturalHex
     ]
   where
     maxInt64 = fromIntegral (maxBound :: Int64)
     maxWord64 = fromIntegral (maxBound :: Word64)
+    maxWordDigits32 = 10 :: Int
+    maxWordDigits64 = 20 :: Int
+    maxWordDigits32hex = 8 :: Int
+    maxWordDigits64hex = 16 :: Int
 
 numberLengthDec :: Natural -> Int
 numberLengthDec = List.length . show
@@ -70,8 +83,6 @@ test_lengthNatural, test_lengthNaturalHex :: Natural -> Assertion
 test_lengthNatural n = lengthNatural n @?= numberLengthDec n
 test_lengthNaturalHex n = lengthNaturalHex n @?= numberLengthHex n
 
-property_lengthNatural :: Natural -> Bool
+property_lengthNatural, property_lengthNaturalHex :: Natural -> Bool
 property_lengthNatural = lengthNatural <==> numberLengthDec
-
-property_lengthNaturalHex :: Natural -> Bool
 property_lengthNaturalHex = lengthNaturalHex <==> numberLengthHex

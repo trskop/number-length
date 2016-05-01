@@ -13,8 +13,9 @@ module TestCase.Data.NumberLength.Integer (tests)
 import Prelude
     ( Bounded(maxBound, minBound)
     , Integer
-    , Num(negate)
+    , Num((-), (*), negate)
     , fromIntegral
+    , (^)
     )
 
 import Control.Applicative (liftA2)
@@ -46,12 +47,24 @@ tests =
     , testCase "lengthInteger maxInt64" $ test_lengthInteger maxInt64
     , testCase "lengthInteger minWord64" $ test_lengthInteger minWord64
     , testCase "lengthInteger maxWord64" $ test_lengthInteger maxWord64
+    , testCase "lengthInteger (maxWord64 * 2)"
+        $ test_lengthInteger (maxWord64 * 2)
+    , testCase "lengthInteger (10 ^ maxWordDigits32 - 1)"
+        $ test_lengthInteger (10 ^ maxWordDigits32 - 1)
+    , testCase "lengthInteger (10 ^ maxWordDigits64 - 1)"
+        $ test_lengthInteger (10 ^ maxWordDigits64 - 1)
     , testProperty "lengthInteger = length . show" property_lengthInteger
 
     , testCase "lengthIntegerHex minInt64" $ test_lengthIntegerHex minInt64
     , testCase "lengthIntegerHex maxInt64" $ test_lengthIntegerHex maxInt64
     , testCase "lengthIntegerHex minWord64" $ test_lengthIntegerHex minWord64
     , testCase "lengthIntegerHex maxWord64" $ test_lengthIntegerHex maxWord64
+    , testCase "lengthIntegerHex (maxWord64 * 2)"
+        $ test_lengthIntegerHex (maxWord64 * 2)
+    , testCase "lengthIntegerHex (10 ^ maxWordDigits32hex - 1)"
+        $ test_lengthIntegerHex (16 ^ maxWordDigits32hex - 1)
+    , testCase "lengthIntegerHex (10 ^ maxWordDigits64hex - 1)"
+        $ test_lengthIntegerHex (16 ^ maxWordDigits64hex - 1)
     , testProperty "lengthIntegerHex = length . show" property_lengthIntegerHex
     ]
   where
@@ -59,6 +72,10 @@ tests =
     maxInt64 = fromIntegral (maxBound :: Int64)
     minWord64 = fromIntegral (minBound :: Word64)
     maxWord64 = fromIntegral (maxBound :: Word64)
+    maxWordDigits32 = 10 :: Int
+    maxWordDigits64 = 20 :: Int
+    maxWordDigits32hex = 8 :: Int
+    maxWordDigits64hex = 16 :: Int
 
 numberLengthDec :: Integer -> Int
 numberLengthDec = List.length . List.dropWhile (== '-') . show
