@@ -30,6 +30,7 @@ import Prelude
     )
 
 import Data.Bool (otherwise)
+import Data.Eq (Eq((==)))
 import Data.Int (Int)
 import Data.Ord (Ord((<)))
 import Data.Word (Word)
@@ -45,7 +46,9 @@ import Data.NumberLength.Word (lengthWord, lengthWordHex)
 lengthNatural :: Natural -> Int
 lengthNatural n
   | n < maxWord = lengthWord (fromIntegral n)
-  | otherwise   = maxWordDigits + lengthNatural (n `quot` (10 ^ maxWordDigits))
+  | otherwise   =
+    let r = n `quot` (10 ^ maxWordDigits)
+    in maxWordDigits + if r == 0 then 0 else lengthNatural r
   where
     maxWordDigits :: Int
     maxWordDigits = 10 `either32or64` 20
@@ -58,7 +61,8 @@ lengthNaturalHex :: Natural -> Int
 lengthNaturalHex n
   | n < maxWord = lengthWordHex (fromIntegral n)
   | otherwise   =
-    maxWordDigits + lengthNaturalHex (n `quot` (16 ^ maxWordDigits))
+    let r = n `quot` (16 ^ maxWordDigits)
+    in maxWordDigits + if r == 0 then 0 else lengthNaturalHex r
   where
     maxWordDigits :: Int
     maxWordDigits = 8 `either32or64` 16

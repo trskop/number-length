@@ -31,6 +31,7 @@ import Prelude
     )
 
 import Data.Bool (otherwise)
+import Data.Eq (Eq((==)))
 import Data.Int (Int)
 import Data.Ord (Ord((<)))
 
@@ -43,14 +44,15 @@ import Data.NumberLength.Internal (either32or64)
 -- /Since 0.2.0.0/
 lengthInteger :: Integer -> Int
 lengthInteger n
-  | n < 0         = go (negate (fromIntegral n))
-  | otherwise     = go (fromIntegral n)
+  | n < 0     = go (negate (fromIntegral n))
+  | otherwise = go (fromIntegral n)
   where
     go :: Integer -> Int
     go m
       | m < maxInt = lengthInt (fromInteger m)
       | otherwise  =
-        maxIntDigits + lengthInteger (m `quot` (10 ^ maxIntDigits))
+        let r = m `quot` (10 ^ maxIntDigits)
+        in maxIntDigits + if r == 0 then 0 else lengthInteger r
 
     maxIntDigits :: Int
     maxIntDigits = 10 `either32or64` 19
@@ -68,7 +70,8 @@ lengthIntegerHex n
     go m
       | m < maxInt = lengthIntHex (fromInteger m)
       | otherwise  =
-        maxIntDigits + lengthIntegerHex (m `quot` (16 ^ maxIntDigits))
+        let r = m `quot` (16 ^ maxIntDigits)
+        in maxIntDigits + if r == 0 then 0 else lengthIntegerHex r
 
     maxIntDigits :: Int
     maxIntDigits = 8 `either32or64` 16
