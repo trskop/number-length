@@ -46,6 +46,14 @@ import Data.NumberLength.Int
     , lengthInt8hex
     , lengthIntHex
     )
+import Data.NumberLength.Integer
+    ( lengthInteger
+    , lengthIntegerHex
+    )
+import Data.NumberLength.Natural
+    ( lengthNatural
+    , lengthNaturalHex
+    )
 import Data.NumberLength.Word
     ( lengthWord
     , lengthWord16
@@ -64,29 +72,33 @@ tests :: [Test]
 tests =
     [ testGroup "class NumberLength"
         [ testGroup "numberLengthHex"
-            [ testProperty "Int"    $ numberLength <==> lengthInt
-            , testProperty "Int8"   $ numberLength <==> lengthInt8
-            , testProperty "Int16"  $ numberLength <==> lengthInt16
-            , testProperty "Int32"  $ numberLength <==> lengthInt32
-            , testProperty "Int64"  $ numberLength <==> lengthInt64
-            , testProperty "Word"   $ numberLength <==> lengthWord
-            , testProperty "Word8"  $ numberLength <==> lengthWord8
-            , testProperty "Word16" $ numberLength <==> lengthWord16
-            , testProperty "Word32" $ numberLength <==> lengthWord32
-            , testProperty "Word64" $ numberLength <==> lengthWord64
+            [ testProperty "Int"     $ numberLength <==> lengthInt
+            , testProperty "Int8"    $ numberLength <==> lengthInt8
+            , testProperty "Int16"   $ numberLength <==> lengthInt16
+            , testProperty "Int32"   $ numberLength <==> lengthInt32
+            , testProperty "Int64"   $ numberLength <==> lengthInt64
+            , testProperty "Word"    $ numberLength <==> lengthWord
+            , testProperty "Word8"   $ numberLength <==> lengthWord8
+            , testProperty "Word16"  $ numberLength <==> lengthWord16
+            , testProperty "Word32"  $ numberLength <==> lengthWord32
+            , testProperty "Word64"  $ numberLength <==> lengthWord64
+            , testProperty "Integer" $ numberLength <==> lengthInteger
+            , testProperty "Natural" $ numberLength <==> lengthNatural
             ]
 
         , testGroup "numberLengthHex"
-            [ testProperty "Int"    $ numberLengthHex <==> lengthIntHex
-            , testProperty "Int8"   $ numberLengthHex <==> lengthInt8hex
-            , testProperty "Int16"  $ numberLengthHex <==> lengthInt16hex
-            , testProperty "Int32"  $ numberLengthHex <==> lengthInt32hex
-            , testProperty "Int64"  $ numberLengthHex <==> lengthInt64hex
-            , testProperty "Word"   $ numberLengthHex <==> lengthWordHex
-            , testProperty "Word8"  $ numberLengthHex <==> lengthWord8hex
-            , testProperty "Word16" $ numberLengthHex <==> lengthWord16hex
-            , testProperty "Word32" $ numberLengthHex <==> lengthWord32hex
-            , testProperty "Word64" $ numberLengthHex <==> lengthWord64hex
+            [ testProperty "Int"     $ numberLengthHex <==> lengthIntHex
+            , testProperty "Int8"    $ numberLengthHex <==> lengthInt8hex
+            , testProperty "Int16"   $ numberLengthHex <==> lengthInt16hex
+            , testProperty "Int32"   $ numberLengthHex <==> lengthInt32hex
+            , testProperty "Int64"   $ numberLengthHex <==> lengthInt64hex
+            , testProperty "Word"    $ numberLengthHex <==> lengthWordHex
+            , testProperty "Word8"   $ numberLengthHex <==> lengthWord8hex
+            , testProperty "Word16"  $ numberLengthHex <==> lengthWord16hex
+            , testProperty "Word32"  $ numberLengthHex <==> lengthWord32hex
+            , testProperty "Word64"  $ numberLengthHex <==> lengthWord64hex
+            , testProperty "Integer" $ numberLengthHex <==> lengthIntegerHex
+            , testProperty "Natural" $ numberLengthHex <==> lengthNaturalHex
             ]
         ]
 

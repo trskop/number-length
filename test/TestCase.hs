@@ -17,6 +17,7 @@ import Test.Framework (Test, testGroup)
 import qualified TestCase.Data.NumberLength as NumberLength (tests)
 import qualified TestCase.Data.NumberLength.Int as Int (tests)
 import qualified TestCase.Data.NumberLength.Integer as Integer (tests)
+import qualified TestCase.Data.NumberLength.Natural as Natural (tests)
 import qualified TestCase.Data.NumberLength.Word as Word (tests)
 
 
@@ -25,5 +26,6 @@ tests =
     [ testGroup "Data.NumberLength.Int" Int.tests
     , testGroup "Data.NumberLength.Word" Word.tests
     , testGroup "Data.NumberLength.Integer" Integer.tests
+    , testGroup "Data.NumberLength.Natural" Natural.tests
     , testGroup "Data.NumberLength" NumberLength.tests
     ]
