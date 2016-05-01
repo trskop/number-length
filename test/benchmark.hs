@@ -1,5 +1,6 @@
-{-# LANGUAGE NoMonomorphismRestriction #-}
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE NoMonomorphismRestriction #-}
 -- |
 -- Module:       Main
 -- Description:  Benchmarks for low-level functions.
@@ -38,10 +39,12 @@ import Data.NumberLength.Integer
     ( lengthInteger
     , lengthIntegerHex
     )
+#ifdef HAVE_NATURAL
 import Data.NumberLength.Natural
     ( lengthNatural
     , lengthNaturalHex
     )
+#endif
 import Data.NumberLength.Word
     ( lengthWord
     , lengthWord16
@@ -112,6 +115,7 @@ main = defaultMain
     , bench "lengthIntegerHex (maxWord64 * 2)" $ nf lengthIntegerHex maxWord64x2
 
 
+#ifdef HAVE_NATURAL
     , bench "lengthNatural 0"                  $ nf lengthNatural 0
     , bench "lengthNatural maxInt64"           $ nf lengthNatural maxInt64
     , bench "lengthNatural maxWord64"          $ nf lengthNatural maxInt64
@@ -121,6 +125,7 @@ main = defaultMain
     , bench "lengthNaturalHex minInt64"        $ nf lengthNaturalHex maxInt64
     , bench "lengthNaturalHex maxWord64"       $ nf lengthNaturalHex maxWord64
     , bench "lengthNaturalHex (maxWord64 * 2)" $ nf lengthNaturalHex maxWord64x2
+#endif
 
 
     , bench "lengthWord 0"        $ nf lengthWord 0

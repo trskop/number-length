@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 -- |
 -- Module:       $HEADER$
@@ -50,10 +51,12 @@ import Data.NumberLength.Integer
     ( lengthInteger
     , lengthIntegerHex
     )
+#ifdef HAVE_NATURAL
 import Data.NumberLength.Natural
     ( lengthNatural
     , lengthNaturalHex
     )
+#endif
 import Data.NumberLength.Word
     ( lengthWord
     , lengthWord16
@@ -83,7 +86,9 @@ tests =
             , testProperty "Word32"  $ numberLength <==> lengthWord32
             , testProperty "Word64"  $ numberLength <==> lengthWord64
             , testProperty "Integer" $ numberLength <==> lengthInteger
+#ifdef HAVE_NATURAL
             , testProperty "Natural" $ numberLength <==> lengthNatural
+#endif
             ]
 
         , testGroup "numberLengthHex"
@@ -98,7 +103,9 @@ tests =
             , testProperty "Word32"  $ numberLengthHex <==> lengthWord32hex
             , testProperty "Word64"  $ numberLengthHex <==> lengthWord64hex
             , testProperty "Integer" $ numberLengthHex <==> lengthIntegerHex
+#ifdef HAVE_NATURAL
             , testProperty "Natural" $ numberLengthHex <==> lengthNaturalHex
+#endif
             ]
         ]
 

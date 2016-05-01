@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 -- |
 -- Module:       $HEADER$
@@ -17,8 +18,11 @@ import Test.Framework (Test, testGroup)
 import qualified TestCase.Data.NumberLength as NumberLength (tests)
 import qualified TestCase.Data.NumberLength.Int as Int (tests)
 import qualified TestCase.Data.NumberLength.Integer as Integer (tests)
-import qualified TestCase.Data.NumberLength.Natural as Natural (tests)
 import qualified TestCase.Data.NumberLength.Word as Word (tests)
+
+#ifdef HAVE_NATURAL
+import qualified TestCase.Data.NumberLength.Natural as Natural (tests)
+#endif
 
 
 tests :: [Test]
