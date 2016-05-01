@@ -1,3 +1,4 @@
+{-# LANGUAGE NoMonomorphismRestriction #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 -- |
 -- Module:       Main
@@ -12,9 +13,11 @@
 module Main (main)
   where
 
-import Prelude (Bounded(minBound, maxBound))
+import Prelude (Bounded(minBound, maxBound), Num((*)), fromIntegral)
 
 import Data.Function (($))
+import Data.Int (Int64)
+import Data.Word (Word64)
 import System.IO (IO)
 
 import Criterion.Main (bench, defaultMain, nf)
@@ -30,6 +33,14 @@ import Data.NumberLength.Int
     , lengthInt8
     , lengthInt8hex
     , lengthIntHex
+    )
+import Data.NumberLength.Integer
+    ( lengthInteger
+    , lengthIntegerHex
+    )
+import Data.NumberLength.Natural
+    ( lengthNatural
+    , lengthNaturalHex
     )
 import Data.NumberLength.Word
     ( lengthWord
@@ -88,6 +99,30 @@ main = defaultMain
     , bench "lengthInt64hex maxBound" $ nf lengthInt64hex maxBound
 
 
+    , bench "lengthInteger minInt64"           $ nf lengthInteger minInt64
+    , bench "lengthInteger 0"                  $ nf lengthInteger 0
+    , bench "lengthInteger maxInt64"           $ nf lengthInteger maxInt64
+    , bench "lengthInteger maxWord64"          $ nf lengthInteger maxWord64
+    , bench "lengthInteger (maxWord64 * 2)"    $ nf lengthInteger maxWord64x2
+
+    , bench "lengthIntegerHex minInt64"        $ nf lengthIntegerHex minInt64
+    , bench "lengthIntegerHex 0"               $ nf lengthIntegerHex 0
+    , bench "lengthIntegerHex minInt64"        $ nf lengthIntegerHex maxInt64
+    , bench "lengthIntegerHex maxWord64"       $ nf lengthIntegerHex maxWord64
+    , bench "lengthIntegerHex (maxWord64 * 2)" $ nf lengthIntegerHex maxWord64x2
+
+
+    , bench "lengthNatural 0"                  $ nf lengthNatural 0
+    , bench "lengthNatural maxInt64"           $ nf lengthNatural maxInt64
+    , bench "lengthNatural maxWord64"          $ nf lengthNatural maxInt64
+    , bench "lengthNatural (maxWord64 * 2)"    $ nf lengthNatural maxWord64x2
+
+    , bench "lengthNaturalHex 0"               $ nf lengthNaturalHex 0
+    , bench "lengthNaturalHex minInt64"        $ nf lengthNaturalHex maxInt64
+    , bench "lengthNaturalHex maxWord64"       $ nf lengthNaturalHex maxWord64
+    , bench "lengthNaturalHex (maxWord64 * 2)" $ nf lengthNaturalHex maxWord64x2
+
+
     , bench "lengthWord 0"        $ nf lengthWord 0
     , bench "lengthWord maxBound" $ nf lengthWord maxBound
 
@@ -118,3 +153,8 @@ main = defaultMain
     , bench "lengthWord64hex 0"        $ nf lengthWord64hex 0
     , bench "lengthWord64hex maxBound" $ nf lengthWord64hex maxBound
     ]
+  where
+    maxInt64 = fromIntegral (maxBound :: Int64)
+    minInt64 = fromIntegral (minBound :: Int64)
+    maxWord64 = fromIntegral (maxBound :: Word64)
+    maxWord64x2 = maxWord64 * 2
