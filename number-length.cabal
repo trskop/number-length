@@ -71,6 +71,7 @@ test-suite unit-tests
       TestCase
     , TestCase.Data.NumberLength
     , TestCase.Data.NumberLength.Int
+    , TestCase.Data.NumberLength.Integer
     , TestCase.Data.NumberLength.Word
 
     , Data.NumberLength
