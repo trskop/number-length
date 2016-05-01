@@ -26,7 +26,7 @@ import qualified Data.List as List (dropWhile, length)
 import Data.Ord (Ord((<)))
 import Data.String (String)
 import Data.Word (Word64)
-import Text.Printf (PrintfArg, printf)
+import Text.Printf (printf)
 import Text.Show (Show(show))
 
 import Test.Framework (Test)
@@ -53,7 +53,6 @@ tests =
     , testCase "lengthIntegerHex minWord64" $ test_lengthIntegerHex minWord64
     , testCase "lengthIntegerHex maxWord64" $ test_lengthIntegerHex maxWord64
     , testProperty "lengthIntegerHex = length . show" property_lengthIntegerHex
-
     ]
   where
     minInt64 = fromIntegral (minBound :: Int64)
