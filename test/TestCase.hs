@@ -30,6 +30,8 @@ tests =
     [ testGroup "Data.NumberLength.Int" Int.tests
     , testGroup "Data.NumberLength.Word" Word.tests
     , testGroup "Data.NumberLength.Integer" Integer.tests
+#ifdef HAVE_NATURAL
     , testGroup "Data.NumberLength.Natural" Natural.tests
+#endif
     , testGroup "Data.NumberLength" NumberLength.tests
     ]
