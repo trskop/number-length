@@ -22,7 +22,7 @@ license:                BSD3
 license-file:           LICENSE
 author:                 Peter Trško
 maintainer:             peter.trsko@gmail.com
-copyright:              (c) 2015-2016, Peter Trško
+copyright:              (c) 2015-2016, 2018 Peter Trško
 category:               Data
 build-type:             Simple
 cabal-version:          >=1.10
@@ -56,12 +56,18 @@ library
     cpp-options:        -DHAVE_NATURAL
     exposed-modules:    Data.NumberLength.Natural
 
-  ghc-options:          -Wall -fwarn-tabs
+  ghc-options:          -Wall
   if flag(pedantic)
-    ghc-options:
-      -fwarn-implicit-prelude
-      -fwarn-missing-import-lists
---    -Werror
+    if impl(ghc >8)
+      ghc-options:
+        -Wimplicit-prelude
+        -Wmissing-import-lists
+        -Werror
+    else
+      ghc-options:
+        -fwarn-implicit-prelude
+        -fwarn-missing-import-lists
+        -Werror
 
 test-suite unit-tests
   hs-source-dirs:       src, test
@@ -104,7 +110,7 @@ test-suite unit-tests
   -- {{{ Test-suite dependencies ----------------------------------------------
     , HUnit >=1.2 && <2
       -- ^ Same constraints as test-framework-hunit
-    , QuickCheck >=2.6 && <2.9
+    , QuickCheck >=2.6 && <3
       -- ^ Same constraints as test-framework-quickcheck2==0.3.0.3.
     , test-framework >=0.8 && <1
       -- ^ Same constraint as test-framework-skip, other packages that
@@ -116,12 +122,18 @@ test-suite unit-tests
       -- on it had a compilation failure on Hackage.
   -- }}} Test-suite dependencies ----------------------------------------------
 
-  ghc-options:          -Wall -fwarn-tabs
+  ghc-options:          -Wall
   if flag(pedantic)
-    ghc-options:
-      -fwarn-implicit-prelude
-      -fwarn-missing-import-lists
---    -Werror
+    if impl(ghc >8)
+      ghc-options:
+        -Wimplicit-prelude
+        -Wmissing-import-lists
+        -Werror
+    else
+      ghc-options:
+        -fwarn-implicit-prelude
+        -fwarn-missing-import-lists
+        -Werror
 
 benchmark benchmark
   hs-source-dirs:       src, test
@@ -152,12 +164,18 @@ benchmark benchmark
     , criterion >=1.0.0.0 && <2
     , number-length
 
-  ghc-options:          -Wall -fwarn-tabs
+  ghc-options:          -Wall
   if flag(pedantic)
-    ghc-options:
-      -fwarn-implicit-prelude
-      -fwarn-missing-import-lists
---    -Werror
+    if impl(ghc >8)
+      ghc-options:
+        -Wimplicit-prelude
+        -Wmissing-import-lists
+        -Werror
+    else
+      ghc-options:
+        -fwarn-implicit-prelude
+        -fwarn-missing-import-lists
+        -Werror
 
 source-repository head
   type:                 git

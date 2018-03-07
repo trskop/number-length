@@ -9,14 +9,21 @@
 # {{{ Global/Linux.gitignore ##################################################
 *~
 
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
 # KDE directory preferences
 .directory
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
 # }}} Global/Linux.gitignore ##################################################
 
-# {{{ Global/OSX.gitignore ####################################################
+# {{{ Global/macOS.gitignore ##################################################
+# General
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -34,6 +41,7 @@ Icon
 .TemporaryItems
 .Trashes
 .VolumeIcon.icns
+.com.apple.timemachine.donotpresent
 
 # Directories potentially created on remote AFP share
 .AppleDB
@@ -41,24 +49,36 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-# }}} Global/OSX.gitignore ####################################################
+# }}} Global/macOS.gitignore ##################################################
 
 # {{{ Global/Vim.gitignore ####################################################
-[._]*.s[a-w][a-z]
-[._]s[a-w][a-z]
-*.un~
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+
+# Session
 Session.vim
+
+# Temporary
 .netrwhist
 *~
+# Auto-generated tag files
+tags
 # }}} Global/Vim.gitignore ####################################################
 
 # {{{ Global/Windows.gitignore ################################################
-# Windows image file caches
+# Windows thumbnail cache files
 Thumbs.db
 ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
 
 # Folder config file
-Desktop.ini
+[Dd]esktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
@@ -75,6 +95,7 @@ $RECYCLE.BIN/
 
 # {{{ Haskell.gitignore #######################################################
 dist
+dist-*
 cabal-dev
 *.o
 *.hi
@@ -89,5 +110,14 @@ cabal.sandbox.config
 *.prof
 *.aux
 *.hp
+*.eventlog
 .stack-work/
+cabal.project.local
+cabal.project.local~
+.HTF/
+.ghc.environment.*
 # }}} Haskell.gitignore #######################################################
+
+# {{{ Local ###################################################################
+stack.yaml
+# }}} Local ###################################################################

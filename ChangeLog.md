@@ -1,6 +1,12 @@
 # ChangeLog / ReleaseNotes
 
 
+## Version 0.2.0.0
+
+* Instances for `Integer` and `Natural`.
+* Build on GHC 8.2.2 and Stackage LTS 10.\*.
+
+
 ## Version 0.1.0.1
 
 * Removed dead code. (**minor change**)
