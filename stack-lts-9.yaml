@@ -9,3 +9,7 @@ packages:
 flags:
   number-length:
     pedantic: true
+
+extra-deps:
+  - quickcheck-instances-0.3.15
+  - QuickCheck-2.10.1
