@@ -29,6 +29,9 @@ import Test.Framework (Test, testGroup)
 import Test.Framework.Providers.HUnit (testCase)
 import Test.Framework.Providers.QuickCheck2 (testProperty)
 import Test.HUnit ((@?=))
+#ifdef HAVE_NATURAL
+import Test.QuickCheck.Instances ()
+#endif
 
 import Data.NumberLength
     ( BoundedNumberLength(maxNumberLength, maxNumberLengthHex)

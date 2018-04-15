@@ -33,6 +33,7 @@ import Test.Framework (Test)
 import Test.Framework.Providers.HUnit (testCase)
 import Test.Framework.Providers.QuickCheck2 (testProperty)
 import Test.HUnit (Assertion, (@?=))
+import Test.QuickCheck.Instances ()
 
 import Data.NumberLength.Natural
     ( lengthNatural

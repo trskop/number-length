@@ -102,6 +102,9 @@ test-suite unit-tests
     other-modules:
         TestCase.Data.NumberLength.Natural
       , Data.NumberLength.Natural
+    build-depends:
+        quickcheck-instances >=0.3.15 && <1
+        -- ^ Version 0.3.15 is the first that contains instances for Natural.
 
   build-depends:
       base >=4.5 && <5
