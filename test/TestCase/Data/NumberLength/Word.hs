@@ -2,7 +2,7 @@
 -- |
 -- Module:       $HEADER$
 -- Description:  TODO
--- Copyright:    (c) 2015-2016, Peter Trško
+-- Copyright:    (c) 2015-2018, Peter Trško
 -- License:      BSD3
 --
 -- Stability:    experimental
@@ -164,6 +164,7 @@ test_lengthWord_maxBound =
 
 property_lengthWord :: Word -> Bool
 property_lengthWord = lengthWord <==> numberLength
+{-# ANN property_lengthWord "HLint: ignore Use camelCase" #-}
 
 -- }}} lengthWord -------------------------------------------------------------
 -- }}} Decimal ----------------------------------------------------------------
@@ -237,6 +238,7 @@ test_lengthWordHex_maxBound =
 
 property_lengthWordHex :: Word -> Bool
 property_lengthWordHex = lengthWordHex <==> numberLengthHex
+{-# ANN property_lengthWordHex "HLint: ignore Use camelCase" #-}
 
 -- }}} lengthWordHex ----------------------------------------------------------
 -- }}} Hexadecimal ------------------------------------------------------------

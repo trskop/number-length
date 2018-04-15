@@ -2,7 +2,7 @@
 -- |
 -- Module:       $HEADER$
 -- Description:  TODO
--- Copyright:    (c) 2015-2016, Peter Trško
+-- Copyright:    (c) 2015-2018, Peter Trško
 -- License:      BSD3
 --
 -- Stability:    experimental
@@ -85,5 +85,9 @@ test_lengthNatural n = lengthNatural n @?= numberLengthDec n
 test_lengthNaturalHex n = lengthNaturalHex n @?= numberLengthHex n
 
 property_lengthNatural, property_lengthNaturalHex :: Natural -> Bool
+
 property_lengthNatural = lengthNatural <==> numberLengthDec
+{-# ANN property_lengthNatural "HLint: ignore Use camelCase" #-}
+
 property_lengthNaturalHex = lengthNaturalHex <==> numberLengthHex
+{-# ANN property_lengthNaturalHex "HLint: ignore Use camelCase" #-}

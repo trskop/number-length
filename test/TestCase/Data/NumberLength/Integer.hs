@@ -2,7 +2,7 @@
 -- |
 -- Module:       $HEADER$
 -- Description:  TODO
--- Copyright:    (c) 2015-2016, Peter Trško
+-- Copyright:    (c) 2015-2018, Peter Trško
 -- License:      BSD3
 --
 -- Stability:    experimental
@@ -95,8 +95,10 @@ test_lengthInteger, test_lengthIntegerHex :: Integer -> Assertion
 test_lengthInteger n = lengthInteger n @?= numberLengthDec n
 test_lengthIntegerHex n = lengthIntegerHex n @?= numberLengthHex n
 
-property_lengthInteger :: Integer -> Bool
-property_lengthInteger = lengthInteger <==> numberLengthDec
+property_lengthInteger, property_lengthIntegerHex :: Integer -> Bool
 
-property_lengthIntegerHex :: Integer -> Bool
+property_lengthInteger = lengthInteger <==> numberLengthDec
+{-# ANN property_lengthInteger "HLint: ignore Use camelCase" #-}
+
 property_lengthIntegerHex = lengthIntegerHex <==> numberLengthHex
+{-# ANN property_lengthIntegerHex "HLint: ignore Use camelCase" #-}

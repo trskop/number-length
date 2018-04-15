@@ -2,7 +2,7 @@
 -- |
 -- Module:       $HEADER$
 -- Description:  TODO
--- Copyright:    (c) 2015-2016, Peter Trško
+-- Copyright:    (c) 2015-2018, Peter Trško
 -- License:      BSD3
 --
 -- Stability:    experimental
@@ -176,6 +176,7 @@ test_lengthInt_maxBound =
 
 property_lengthInt :: Int -> Bool
 property_lengthInt = lengthInt <==> numberLengthDec
+{-# ANN property_lengthInt "HLint: ignore Use camelCase" #-}
 
 -- }}} lengthInt --------------------------------------------------------------
 -- }}} Decimal ----------------------------------------------------------------
@@ -252,6 +253,7 @@ test_lengthIntHex_maxBound =
 
 property_lengthIntHex :: Int -> Bool
 property_lengthIntHex = lengthIntHex <==> numberLengthHex
+{-# ANN property_lengthIntHex "HLint: ignore Use camelCase" #-}
 
 -- }}} lengthIntHex -----------------------------------------------------------
 -- }}} Hexadecimal ------------------------------------------------------------
