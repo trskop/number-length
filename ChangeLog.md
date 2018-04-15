@@ -1,6 +1,12 @@
 # ChangeLog / ReleaseNotes
 
 
+## Version 0.2.1.0
+
+* Depend on `quickcheck-instances` to provide `instance Arbitrary Natural` for
+  unit tests. (**minor change**)
+
+
 ## Version 0.2.0.0
 
 * Instances for `Integer` and `Natural`.
